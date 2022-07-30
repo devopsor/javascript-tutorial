@@ -17,13 +17,13 @@ ECMAScript is a trademarked scripting language specification that is defined by 
 | Loops    | In ES5, there is a use of for loop to iterate over elements.     | ES6 introduced the concept of for...of loop to perform an iteration over the values of the iterable objects.     |
 
 ### Execute Javascript
-1. navigate to folder _javascript-es-tutorials_
+1. navigate to folder _javascript-es5-tutorials_
 ![](/assets/open.png "Difference between ES5 and ES6")
 
 2. open vscode, click the _file_ menu, select _open workspace from file_.
 ![](/assets/workspace.png "Difference between ES5 and ES6")
 
-3. select _js.code-workspace_.
+3. select _js.code-workspace_ file.
 ![](/assets/import.png "Difference between ES5 and ES6")
 
 4. select the javascript file that you want to execute, and click green triangle in _RUN AND DEBUG_ area.
