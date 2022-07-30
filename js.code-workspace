@@ -1,0 +1,61 @@
+{
+	"folders": [
+		{
+			"path": "1_helloworld"
+		},
+		{
+			"path": "2_declaration"
+		},
+		{
+			"path": "3_datatype"
+		},
+		{
+			"path": "4_string"
+		},
+		{
+			"path": "5_array"
+		},
+		{
+			"path": "6_object"
+		},
+		{
+			"path": "7_condition"
+		},
+		{
+			"path": "8_loop"
+		},
+		{
+			"path": "9_mapset"
+		},
+		{
+			"path": "10_iterate"
+		},
+		{
+			"path": "11_typeof"
+		},
+		{
+			"path": "12_oop"
+		},
+		{
+			"path": "13_browser"
+		},
+		{
+			"path": "14_jquery"
+		},
+		{
+			"path": "15_exception"
+		},
+		{
+			"path": "16_underscore"
+		},
+		{
+			"path": "17_nodejs"
+		},
+		{
+			"path": "assets"
+		}
+	],
+  "files":[
+    "README.md"
+  ]
+}
