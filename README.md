@@ -1,6 +1,8 @@
-# ECMAScript5
+## ECMAScript5
 ECMAScript is a trademarked scripting language specification that is defined by ECMA International. It was created to standardize JavaScript. The ES scripting language has many implementations, and the popular one is JavaScript. Generally, ECMAScript is used for client-side scripting of the World Wide Web.  
 ***ECMAScript 2009***, also known as ***ES5***, was the ***first major revision*** to JavaScript.This repository introduces the most important features of ***ES5***.  
+
+### Difference between ES6 and ES6
 
 | Based on                    | ES5                    | ES6 |
 | -------------------------- | --------------------------- | -------------------- |
@@ -14,7 +16,15 @@ ECMAScript is a trademarked scripting language specification that is defined by 
 | Arrow Functions    | In ES5, both function and return keywords are used to define a function.    | An arrow function is a new feature introduced in ES6 by which we don't require the function keyword to define the function.    |
 | Loops    | In ES5, there is a use of for loop to iterate over elements.     | ES6 introduced the concept of for...of loop to perform an iteration over the values of the iterable objects.     |
 
+### Execute Javascript
+1. navigate to folder _javascript-es-tutorials_
 ![](/assets/open.png "Difference between ES5 and ES6")
+
+2. open vscode, click the _file_ menu, select _open workspace from file_.
 ![](/assets/workspace.png "Difference between ES5 and ES6")
+
+3. select _js.code-workspace_.
 ![](/assets/import.png "Difference between ES5 and ES6")
+
+4. select the javascript file that you want to execute, and click green triangle in _RUN AND DEBUG_ area.
 ![](/assets/execute.png "Difference between ES5 and ES6")
