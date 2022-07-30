@@ -1,31 +1,31 @@
 {
 	"folders": [
 		{
-			"path": "1_helloworld"
+			"path": "01_helloworld"
 		},
 		{
-			"path": "2_declaration"
+			"path": "02_declaration"
 		},
 		{
-			"path": "3_datatype"
+			"path": "03_datatype"
 		},
 		{
-			"path": "4_string"
+			"path": "04_string"
 		},
 		{
-			"path": "5_array"
+			"path": "05_array"
 		},
 		{
-			"path": "6_object"
+			"path": "06_object"
 		},
 		{
-			"path": "7_condition"
+			"path": "07_condition"
 		},
 		{
-			"path": "8_loop"
+			"path": "08_loop"
 		},
 		{
-			"path": "9_mapset"
+			"path": "09_mapset"
 		},
 		{
 			"path": "10_iterate"
