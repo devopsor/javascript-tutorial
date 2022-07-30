@@ -14,6 +14,7 @@ ECMAScript is a trademarked scripting language specification that is defined by 
 | Arrow Functions    | In ES5, both function and return keywords are used to define a function.    | An arrow function is a new feature introduced in ES6 by which we don't require the function keyword to define the function.    |
 | Loops    | In ES5, there is a use of for loop to iterate over elements.     | ES6 introduced the concept of for...of loop to perform an iteration over the values of the iterable objects.     |
 
-![](/assets/clone.png "Difference between ES5 and ES6")
 ![](/assets/open.png "Difference between ES5 and ES6")
+![](/assets/workspace.png "Difference between ES5 and ES6")
 ![](/assets/import.png "Difference between ES5 and ES6")
+![](/assets/execute.png "Difference between ES5 and ES6")
