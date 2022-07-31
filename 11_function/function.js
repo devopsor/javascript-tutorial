@@ -178,3 +178,209 @@ function max1(a, b) {
 }
 }
 console.log(max1(15,20));
+console.log('\n');
+
+//////////////////////////////////////////////////////////////////////Variable Scope and Destructurie ///////////////////////////////////////////////////////////////////////
+// In JavaScript, var declared variables are actually scoped.
+// If a variable is declared inside the function body, the scope of the variable is the entire function body, 
+// and the variable cannot be referenced outside the function body:
+function foo11() {
+  var x = 1;
+  x = x + 1;
+  console.log(x);
+}
+// x = x + 2; // ReferenceError: x is not defined
+foo11();
+console.log('\n');
+
+//  variables with the same name inside different functions are independent of each other and do not affect each other:
+function foo12() {
+  var x = 2;
+  x = x + 1;
+  console.log(x);
+}
+foo12();
+
+function bar() {
+  var x = 'A';
+  x = x + 'B';
+  console.log(x);
+}
+bar();
+console.log('\n');
+
+// Since JavaScript functions can be nested, at this point, 
+// the inner function can access the variables defined by the outer function, but not vice versa
+function foo13() {
+  var x = 1;
+  function bar() {
+      var y = x + 1; // bar has access to foo's variable x!
+      console.log(y);
+  }
+  bar();
+  // var z = y + 1; // ReferenceError! foo cannot access bar's variable y
+}
+foo13();
+console.log('\n');
+
+// What if the variable names of the inner function and the outer function have the same name? Let's test it out:
+function foo14() {
+  var x = 1;
+  var y = 2;
+  function bar() {
+      var x = 'A';
+      console.log('x in bar() = ' + x); // 'A'
+      console.log('y in foo14() = ' + y); // 2
+  }
+  console.log('x in foo() = ' + x); // 1
+  bar();
+}
+foo14();
+console.log('\n');
+
+// Local Scope
+// Since JavaScript's variable scope is actually inside a function, 
+// we forcannot define a variable with local scope in a statement block such as a loop:
+function foo15() {
+  for (var i=0; i<100; i++) {
+  }
+  i += 100; // variable i can still be referenced
+  return i;
+}
+console.log(foo15());  // 200
+console.log('\n');
+
+// To address block scope, ES6 introduces new keywords letthat can be used letinstead varto declare a block scoped variable:
+function foo16() {
+  var sum = 0;
+  for (let i=0; i<100; i++) {
+      sum += i;
+  }
+  // SyntaxError:
+  // i += 1;  // ReferenceError: i is not defined
+  return sum; 
+}
+console.log(foo16());
+
+
+// Constant
+// The ES6 standard introduces new keywords constto define constants, both constwith letblock scope:
+const PI = 3.14;
+// PI = 3; // Assignment to constant variable.
+console.log(PI); // 3.14
+
+// Destructuring assignment
+var array = ['hello', 'JavaScript', 'ES6'];
+var x = array[0];
+var y = array[1];
+var z = array[2];
+console.log(x);
+console.log(y);
+console.log(z);
+console.log('\n');
+// Now, in ES6, you can use destructuring assignment to directly assign multiple variables at the same time:
+var [x, y, z] = ['hello1', 'JavaScript1', 'ES6'];
+console.log(x);
+console.log(y);
+console.log(z);
+console.log('\n');
+
+let [x1, [y1, z1]] = ['hello', ['JavaScript', 'ES6']];
+console.log(x1); // 'hello'
+console.log(y1); // 'JavaScript'
+console.log(z1); // 'ES6'
+console.log('\n');
+
+// Destructuring assignment can also ignore certain elements:
+let [, , z2] = ['hello', 'JavaScript', 'ES6']; 
+console.log(z2);
+console.log('\n');
+let [x3,, z3] = ['hello3', 'JavaScript3', 'ES6']; 
+console.log(x3);
+console.log(z3);
+console.log('\n');
+// If you need to extract several properties from an object, you can also use destructuring assignment to quickly obtain 
+// the specified properties of the object:
+var person = {
+  name1: 'James',
+  age1: 20,
+  gender: 'male',
+  passport1: 'G-12345678',
+  school: 'No.4 middle school'
+};
+var {name1, age1, passport1} = person;
+console.log('name = ' + name1 + ', age = ' + age1 + ', passport = ' + passport1);
+console.log('\n');
+
+// When destructuring and assigning an object, you can also directly assign values ​​to nested object properties, 
+// as long as the corresponding levels are consistent:
+var person = {
+  name2: 'James',
+  age: 20,
+  gender: 'male',
+  passport: 'G-12345678',
+  school: 'No.4 middle school',
+  address2: {
+      city: 'Beijing',
+      street: 'No.1 Road',
+      zipcode: '100001'
+  }
+};
+var {name2, address2: {city, zip}} = person;
+console.log(name2); // 'James'
+console.log(city); // 'Beijing'
+// console.log(zip); // undefined, because the attribute name is zipcode not zip
+console.log('\n');
+
+// Note: address is not a variable, but for city and zip to get properties of nested address objects:
+// console.log(address2); // Uncaught ReferenceError: address2 is not defined
+
+// When destructuring assignment is used to assign an object property, 
+// if the corresponding property does not exist, the variable will be assigned as , 
+// which is consistent with undefinedreferencing a non-existing property 
+var person = {
+  name3: 'James',
+  age: 20,
+  gender: 'male',
+  passport: 'G-12345678',
+  school: 'No.4 middle school'
+};
+
+// Get the passport attribute for the variable id:
+let {name3, passport:id} = person;
+console.log(name3); // 'James'
+console.log(id); // 'G-12345678'
+//Note: passport is not a variable, but to get the passport attribute for the variable id:
+// console.log(passport); // Uncaught ReferenceError: passport is not defined
+console.log('\n');
+
+
+// Destructuring assignment can also use default values, 
+// which avoids the undefinedproblem of returning non-existing properties:
+var person = {
+  name4: 'James',
+  age: 20,
+  gender: 'male',
+  passport: 'G-12345678'
+};
+// If the person object does not have a single property, the default value is true:
+var {name4, single=true} = person;
+console.log(name4); // 'James'
+console.log(single); // true
+console.log('\n');
+
+// Scenes to be used
+// Destructuring assignment can greatly simplify code in many cases. 
+// For example, to swap the values ​​of two variables xand y, without the need for temporary variables, you can write:
+var x=1, y=2;
+[x, y] = [y, x];
+console.log('x = ' + x + ', y = ' + y );
+
+// If a function accepts an object as a parameter, 
+// then destructuring can be used to bind the object's properties directly to variables. 
+// For example, the following function can quickly create an Dateobject:
+function buildDate({year, month, day, hour=0, minute=0, second=0}) {
+  return new Date(year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second);
+}
+var date = buildDate({ year: 2017, month: 1, day: 1 });
+console.log(date);
