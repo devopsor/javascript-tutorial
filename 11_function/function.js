@@ -25,7 +25,7 @@ var abs = function (x) {
       return -x;
   }
 };
-console.log(abs(-2));
+console.log(abs(-2));   // 2
 
 // Since JavaScript allows any number of parameters to be passed without affecting the call, 
 // it is not a problem to pass in more parameters than are defined, although these parameters are not required inside the function:
@@ -46,7 +46,7 @@ function abs1(x) {
   }
 }
 // console.log(abs1('2'));   // Uncaught Error Not a number
-console.log(abs1(-2)); 
+console.log(abs1(-2));   // 2
 console.log('\n');
 
 // Arguments
@@ -58,7 +58,11 @@ function foo(x) {
       console.log('arg ' + i + ' = ' + arguments[i]); // 10, 20, 30
   }
 }
-foo(10, 20, 30);
+foo(10, 20, 30);  
+// arg 0 = 10 
+// arg 1 = 20 
+// arg 2 = 30 
+
 console.log('\n');
 
 // With argumentsthat, you can get all the parameters passed in by the caller. 
@@ -84,13 +88,13 @@ function foo2(a, b) {
           rest.push(arguments[i]);
       }
   }
-  console.log('a = ' + a);
+  console.log('a = ' + a);  
   console.log('b = ' + b);
   console.log(rest);
 }
-foo2(1);
-foo2(1, 2);
-foo2(1,2,3);
+foo2(1);   // a= 1 b=undefined
+foo2(1, 2);   // a=1 b=2
+foo2(1,2,3);  
 console.log('\n');
 
 // The ES6 standard introduces the rest parameter, and the above function can be rewritten as:
@@ -155,7 +159,7 @@ function foo6() {
       name: 'foo'
   };
 }
-console.log(foo6()); // undefined
+console.log(foo6()); // {name: 'foo'}
 console.log('\n');
 
 function max(a, b) {
@@ -177,7 +181,7 @@ function max1(a, b) {
     return b;
 }
 }
-console.log(max1(15,20));
+console.log(max1(15,20));  // 20
 console.log('\n');
 
 //////////////////////////////////////////////////////////////////////Variable Scope ///////////////////////////////////////////////////////////////////////
@@ -190,7 +194,7 @@ function foo11() {
   console.log(x);
 }
 // x = x + 2; // ReferenceError: x is not defined
-foo11();
+foo11();     //2
 console.log('\n');
 
 //  variables with the same name inside different functions are independent of each other and do not affect each other:
@@ -199,14 +203,14 @@ function foo12() {
   x = x + 1;
   console.log(x);
 }
-foo12();
+foo12();    // 3
 
 function bar() {
   var x = 'A';
   x = x + 'B';
   console.log(x);
 }
-bar();
+bar();  // AB
 console.log('\n');
 
 // Since JavaScript functions can be nested, at this point, 
@@ -217,7 +221,7 @@ function foo13() {
       var y = x + 1; // bar has access to foo's variable x!
       console.log(y);
   }
-  bar();
+  bar();  // 2
   // var z = y + 1; // ReferenceError! foo cannot access bar's variable y
 }
 foo13();
@@ -260,7 +264,7 @@ function foo16() {
   // i += 1;  // ReferenceError: i is not defined
   return sum; 
 }
-console.log(foo16());
+console.log(foo16());  //4950
 
 
 // Constant
@@ -274,15 +278,15 @@ var array = ['hello', 'JavaScript', 'ES6'];
 var x = array[0];
 var y = array[1];
 var z = array[2];
-console.log(x);
-console.log(y);
-console.log(z);
+console.log(x);  // hello
+console.log(y);  //Javascript
+console.log(z);  //ES6
 console.log('\n');
 // Now, in ES6, you can use destructuring assignment to directly assign multiple variables at the same time:
 var [x, y, z] = ['hello1', 'JavaScript1', 'ES6'];
-console.log(x);
-console.log(y);
-console.log(z);
+console.log(x); //hello1
+console.log(y); //Javascript1
+console.log(z); //ES6
 console.log('\n');
 
 let [x1, [y1, z1]] = ['hello', ['JavaScript', 'ES6']];
@@ -293,11 +297,11 @@ console.log('\n');
 
 // Destructuring assignment can also ignore certain elements:
 let [, , z2] = ['hello', 'JavaScript', 'ES6']; 
-console.log(z2);
+console.log(z2);  //ES6
 console.log('\n');
 let [x3,, z3] = ['hello3', 'JavaScript3', 'ES6']; 
-console.log(x3);
-console.log(z3);
+console.log(x3);  // hello3
+console.log(z3);  // ES6
 console.log('\n');
 // If you need to extract several properties from an object, you can also use destructuring assignment to quickly obtain 
 // the specified properties of the object:
@@ -309,7 +313,8 @@ var person = {
   school: 'No.4 middle school'
 };
 var {name1, age1, passport1} = person;
-console.log('name = ' + name1 + ', age = ' + age1 + ', passport = ' + passport1);
+// name = James, age = 20, passport = G-12345678
+console.log('name = ' + name1 + ', age = ' + age1 + ', passport = ' + passport1); 
 console.log('\n');
 
 // When destructuring and assigning an object, you can also directly assign values ​​to nested object properties, 
@@ -374,7 +379,7 @@ console.log('\n');
 // For example, to swap the values ​​of two variables xand y, without the need for temporary variables, you can write:
 var x=1, y=2;
 [x, y] = [y, x];
-console.log('x = ' + x + ', y = ' + y );
+console.log('x = ' + x + ', y = ' + y );  // x = 2, y = 1
 
 // If a function accepts an object as a parameter, 
 // then destructuring can be used to bind the object's properties directly to variables. 
@@ -383,7 +388,7 @@ function buildDate({year, month, day, hour=0, minute=0, second=0}) {
   return new Date(year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second);
 }
 var date = buildDate({ year: 2017, month: 1, day: 1 });
-console.log(date);
+console.log(date);  // Sun Jan 01 2017 00:00:00 GMT+0900
 console.log('\n');
 
 ////////////////////////////////////////////////////////////////////// Method  ///////////////////////////////////////////////////////////////////////
@@ -392,7 +397,7 @@ var person = {
   name: 'james',
   birth: 1990
 };
-console.log(person.name);
+console.log(person.name);  //james
 console.log('\n');
 // However, if we want james to bind a function, we can do more. For example, write a age() method that returns james age:
 var person = {
@@ -404,7 +409,7 @@ var person = {
   }
 };
 console.log(person.age); // function person.age()
-console.log(person.age()); // This year's call is 32, next year's call will become 33
+console.log(person.age()); // 32
 console.log('\n');
 
 // A function bound to an object is called a method, which is no different from a normal function, 
@@ -416,11 +421,11 @@ function getAge() {
   return y - this.birth;
 }
 var person = {
-  name: '小明',
+  name: 'james',
   birth: 1990,
   age: getAge
 };
-console.log(person.age); // 32, normal result
+console.log(person.age); // function getAge(){}
 console.log(getAge()); // NaN
 console.log('\n');
 
@@ -500,13 +505,75 @@ function logDecorate(wrapped) {
   }
 }
 const wrapped = logDecorate(doLogging);
-doLogging('Graham');  //Graham
+doLogging('Graham');  //Hello, Graham
 // new function
 wrapped('Graham');  
 // Starting
 // Hello, Graham
 // Finished
+console.log('\n');
 
+////////////////////////////////////////////////////////////////////// Higher-Order Function  ///////////////////////////////////////////////////////////////////////
+// JavaScript functions actually point to a variable. Since variables can point to functions, 
+// and function parameters can receive variables, then a function can receive another function as a parameter. 
+// This kind of function is called a higher-order function.
+// Simple Example
+var x = -5;
+var y = 6;
+var f = Math.abs;
+function add(x, y, f) {
+  return f(x) + f(y);
+}
+var x = add(-5, 6, Math.abs); // 11
+console.log(x);
 
-////////////////////////////////////////////////////////////////////// Higher-order function  ///////////////////////////////////////////////////////////////////////
+// MapReduce
+function pow(x) {
+  return x * x;
+}
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// Since the map() method is defined in JavaScript Array, 
+// we call Array the map() method, pass in our own function, and get a new one Arrayas the result:
+var results = arr.map(pow); // [1, 4, 9, 16, 25, 36, 49, 64, 81]
+console.log(results);
 
+// Note: map() The parameter passed in is pow the function object itself.
+// You might think, no need map(), write a loop that can also calculate the result:
+var f = function (x) {
+  return x * x;
+};
+
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var result = [];
+for (var i=0; i<arr.length; i++) {
+  result.push(f(arr[i]));
+}
+console.log(result);
+// Yes, but, from the above loop code, we can't understand at a glance "apply f(x) to each element of Array and 
+// generate a new Array with the result".
+// Therefore, map() as a higher-order function, it actually abstracts the operation rules. 
+//  we can not only calculate simple f(x)=x 2 , but also calculate arbitrarily complex functions, 
+// such as converting Arrayall numbers into strings :
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+arr.map(String); // ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+console.log(arr);
+console.log('\n');
+
+//Reduce
+// Look at the usage of reduce. Array reduce()applies a function to this Array
+// [x1, x2, x3...] This function must receive two parameters, and reduce()the result continues to 
+// accumulate with the next element of the sequence. The effect is:
+// [x1, x2, x3, x4].reduce(f) = f(f(f(x1, x2), x3), x4)
+var arr = [1, 3, 5, 7, 9];
+var result = arr.reduce(function (x, y) {
+    return x + y;
+}); // 25
+console.log(result);
+console.log('\n');
+
+var arr = [1, 3, 5, 7, 9];
+var result = arr.reduce(function (x, y) {
+    return x * 10 + y;
+}); // 13579
+console.log(result);
+console.log('\n');
