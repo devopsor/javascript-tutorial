@@ -9,7 +9,7 @@
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "C:\\Program Files\\Nodejs\\node.exe",
-      "program": "${workspaceRoot}\\typeof.js",
+      "program": "${workspaceRoot}\\function.js",
     }
   ]
 } 
