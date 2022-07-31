@@ -677,3 +677,52 @@ var a2 = a1.sort();
 console.log(a1); // ['A', 'B', 'C']
 console.log(a2); // ['A', 'B', 'C']
 console.log(a1 === a2); // true, a1和a2是同一对象
+
+
+// For arrays, in addition to map(), reduce, filter(), sort() 
+// these methods can pass in a function, Array objects also provide many very useful higher-order functions.
+// Every
+// The method can determine whether all elements of the array meet the test conditions.
+var arr = ['Apple', 'pear', 'orange'];
+console.log(arr.every(function (s) {
+    return s.length > 0;
+})); // true,Because each element satisfies s.length>0
+
+console.log(arr.every(function (s) {
+    return s.toLowerCase() === s;
+})); // false, because not every element is all lowercase
+
+
+//Find
+// The method is used to find the first element that matches the condition,
+//  if found, return this element, otherwise, return undefined:
+var arr = ['Apple', 'pear', 'orange'];
+console.log(arr.find(function (s) {
+    return s.toLowerCase() === s;
+})); // 'pear', Because pear is all lowercase
+
+console.log(arr.find(function (s) {
+    return s.toUpperCase() === s;
+})); // undefined, because there are no all-caps elements
+
+//FindIndex
+// findIndex() And find() similar, also finds the first element that meets the condition, 
+// the difference is that findIndex()it will return the index of this element, if not found, return -1:
+var arr = ['Apple', 'pear', 'orange'];
+console.log(arr.findIndex(function (s) {
+    return s.toLowerCase() === s;
+})); // 1, because the index of 'pear' is 1
+
+console.log(arr.findIndex(function (s) {
+    return s.toUpperCase() === s;
+})); // -1
+
+//ForEach
+// ForEach() And map() similarly, it also applies each element in turn to the passed function, 
+// but does not return a new array. forEach() Often used to iterate over arrays, therefore, 
+// the passed-in function does not need to return a value:
+var arr = ['Apple', 'pear', 'orange'];
+arr.forEach(console.log); // print each element in turn
+// Apple 0 (3) ['Apple', 'pear', 'orange']
+// pear 1 (3) ['Apple', 'pear', 'orange']
+// orange 2 (3) ['Apple', 'pear', 'orange']
