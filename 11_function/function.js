@@ -180,7 +180,7 @@ function max1(a, b) {
 console.log(max1(15,20));
 console.log('\n');
 
-//////////////////////////////////////////////////////////////////////Variable Scope and Destructurie ///////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////Variable Scope ///////////////////////////////////////////////////////////////////////
 // In JavaScript, var declared variables are actually scoped.
 // If a variable is declared inside the function body, the scope of the variable is the entire function body, 
 // and the variable cannot be referenced outside the function body:
@@ -269,7 +269,7 @@ const PI = 3.14;
 // PI = 3; // Assignment to constant variable.
 console.log(PI); // 3.14
 
-// Destructuring assignment
+////////////////////////////////////////////////////////////////////// Destructurie assignment///////////////////////////////////////////////////////////////////////
 var array = ['hello', 'JavaScript', 'ES6'];
 var x = array[0];
 var y = array[1];
@@ -384,3 +384,129 @@ function buildDate({year, month, day, hour=0, minute=0, second=0}) {
 }
 var date = buildDate({ year: 2017, month: 1, day: 1 });
 console.log(date);
+console.log('\n');
+
+////////////////////////////////////////////////////////////////////// Method  ///////////////////////////////////////////////////////////////////////
+// In JavaScript, an object is defined like this:
+var person = {
+  name: 'james',
+  birth: 1990
+};
+console.log(person.name);
+console.log('\n');
+// However, if we want james to bind a function, we can do more. For example, write a age() method that returns james age:
+var person = {
+  name: 'james',
+  birth: 1990,
+  age: function () {
+      var y = new Date().getFullYear();
+      return y - this.birth;
+  }
+};
+console.log(person.age); // function person.age()
+console.log(person.age()); // This year's call is 32, next year's call will become 33
+console.log('\n');
+
+// A function bound to an object is called a method, which is no different from a normal function, 
+// but what the result if we uses a this keyword internally.
+// Inside a method, this is a special variable that always points to the current object, 
+// which is person this variable. So, this.birth you can get person the birth properties.
+function getAge() {
+  var y = new Date().getFullYear();
+  return y - this.birth;
+}
+var person = {
+  name: '小明',
+  birth: 1990,
+  age: getAge
+};
+console.log(person.age); // 32, normal result
+console.log(getAge()); // NaN
+console.log('\n');
+
+// How does a single call to a function getAge()return NaN? Note that we've entered a big hole in JavaScript.
+// If a function in JavaScript is called this,  who does this point to?
+// The answer is, it depends!
+// If it is called as a method of an object, for example person.age(), 
+// the function this points to the called object, that is person, this is what we expect.
+// If the function is called separately, for example getAge(), at this time, the function's this pointer to the global object, ie window.
+var fn = person.age(); // First get the age function of person
+console.log(fn); // 32
+console.log('\n');
+
+// Sometimes, if you like refactoring, you refactor the method:
+var person = {
+  name: 'james',
+  birth: 1990,
+  age: function () {
+      function getAgeFromBirth() {
+          var y = new Date().getFullYear();
+          return y - this.birth;
+      }
+      return getAgeFromBirth();
+  }
+};
+console.log(person.age()); // NaN
+console.log('\n');
+
+// To fix this problem, we use a that variable to capture first this:
+// You can use var that = this; safely define other functions inside the method, 
+// instead of stacking all the statements into one method
+var person = {
+  name: 'james',
+  birth: 1990,
+  age: function () {
+      var that = this; // Capture this from the very beginning inside the method
+      function getAgeFromBirth() {
+          var y = new Date().getFullYear();
+          return y - that.birth; // use that instead of this
+      }
+      return getAgeFromBirth();
+  }
+};
+console.log(person.age()); // 32
+console.log('\n');
+
+// Apply
+// Although in a separate function call, depending on whether it is in strict mode, 
+// this pointing to undefinedor window, we can still control this the pointing
+function getAge() {
+  var y = new Date().getFullYear();
+  return y - this.birth;
+}
+var person = {
+  name: 'james',
+  birth: 1990,
+  age: getAge
+};
+console.log(person.age()); // 32
+console.log(getAge.apply(person, [])); // 32, this points to person, the parameter is empty
+console.log('\n');
+
+
+// Decorator
+// This example produces a new function — in the variable wrapped — that can be called exactly 
+// the same way as the doSomething function, and will do exactly the same thing. 
+// The difference is that it will do some logging before and after the wrapped function is called:
+function doLogging(name) {
+  console.log('Hello, ' + name);
+}
+function logDecorate(wrapped) {
+  return function() {
+    console.log('Starting');
+    const result = wrapped.apply(this, arguments);
+    console.log('Finished');
+    return result;
+  }
+}
+const wrapped = logDecorate(doLogging);
+doLogging('Graham');  //Graham
+// new function
+wrapped('Graham');  
+// Starting
+// Hello, Graham
+// Finished
+
+
+////////////////////////////////////////////////////////////////////// Higher-order function  ///////////////////////////////////////////////////////////////////////
+
