@@ -31,25 +31,28 @@
 			"path": "10_iterate"
 		},
 		{
-			"path": "11_typeof"
+			"path": "11_function"
 		},
 		{
-			"path": "12_oop"
+			"path": "12_typeof"
 		},
 		{
-			"path": "13_browser"
+			"path": "13_oop"
 		},
 		{
-			"path": "14_jquery"
+			"path": "14_browser"
 		},
 		{
-			"path": "15_exception"
+			"path": "15_jquery"
 		},
 		{
-			"path": "16_underscore"
+			"path": "16_exception"
 		},
 		{
-			"path": "17_nodejs"
+			"path": "17_underscore"
+		},
+		{
+			"path": "18_nodejs"
 		},
 		{
 			"path": "assets"
