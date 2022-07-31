@@ -580,3 +580,100 @@ console.log('\n');
 
 
 ///////////////////////////////////////////////////////////////////////////Filter////////////////////////////////////////////////////////////////////////////
+// Filter is also a common operation, it is used to Arrayfilter out some elements, and then return the remaining elements
+// For example, in one Array, to remove the even numbers and keep only the odd numbers, one could write:
+var arr = [1, 2, 4, 5, 6, 9, 10, 15];
+var r = arr.filter(function (x) {
+    return x % 2 !== 0;
+});
+console.log(r); // [1, 5, 9, 15]
+// To Array delete the empty string in one, you can write:
+var arr = ['A', '', 'B', null, undefined, 'C', '  '];
+var r = arr.filter(function (s) {
+    return s && s.trim(); // Note: Versions below IE9 do not have the trim() method
+});
+console.log(r); // ['A', 'B', 'C']
+console.log('\n');
+
+// Callback
+// Filter()The received callback function can actually have multiple parameters. 
+// Usually we only use the first parameter, which represents Array an element. 
+// The callback function can also receive two other parameters, the position of the element and the array itself:
+var arr = ['A', 'B', 'C'];
+var r = arr.filter(function (element, index, self) {
+    console.log(element); // 'A', 'B', 'C'
+    console.log(index); // 0, 1, 2
+    console.log(self); // self is arr itselft
+    return true;
+});
+console.log(r); 
+console.log('\n');
+
+// Take advantage of duplicate elements filterthat can be neatly removed :Array
+var r = ['apple', 'strawberry', 'banana', 'pear', 'apple', 'orange', 'orange', 'strawberry'];
+var unique = [...new Set(r)];
+console.log(unique); // ['apple', 'strawberry', 'banana', 'pear', 'orange']
+console.log('\n');
+
+
+var unique = r.filter(function(item, pos, self) {
+  return self.indexOf(item) == pos;
+})
+console.log(unique);  // ['apple', 'strawberry', 'banana', 'pear', 'orange']
+console.log('\n');
+
+// Sorting 
+// Sorting is also an algorithm that is often used in programs. 
+// Whether using bubble sort or quicksort, the core of sorting is to compare the size of two elements
+var result = ['Google', 'Apple', 'Microsoft'];
+result.sort();
+console.log(result); //  ['Apple', 'Google', 'Microsoft']
+console.log('\n');
+
+var result = ['google', 'apple', 'microsoft'];
+result.sort();
+console.log(result);  // ['apple', 'google', 'microsoft']
+
+
+var result =[10, 20, 1, 2].sort();
+// This is because Array the sort() method converts all elements to String by default and then sorts the result '10'first '2', 
+// because the character '1' is smaller than '2' the ASCII code of the characte
+console.log(result); // [1, 10, 2, 20] 
+console.log('\n');
+
+// Fortunately, the sort() method is also a higher-order function, 
+// which can also receive a comparison function to implement custom sorting.
+// To sort by numerical size, we can write:
+var arr = [20, 10,  1, 2];
+arr.sort(function (x, y) {return x - y});
+console.log(arr); // [1, 2, 10, 20]
+
+// If we want to sort in reverse order, we can put the larger numbers first:
+var arr = [10, 20, 1, 2];
+arr.sort(function (x, y) {return y - x }); 
+console.log(arr); // [20, 10, 2, 1]
+
+// By default, the sorting of strings is based on ASCII size comparison. 
+// Now, we propose that sorting should ignore case and sort in alphabetical order. 
+// To implement this algorithm, we don't have to make major changes to the existing code, 
+// as long as we can define a case-insensitive comparison algorithm:
+var arr = ['Google', 'apple', 'Microsoft'];
+arr.sort(function (s1, s2) {
+    x1 = s1.toUpperCase();
+    x2 = s2.toUpperCase();
+    if (x1 < x2) {
+        return -1;
+    }
+    if (x1 > x2) {
+        return 1;
+    }
+    return 0;
+}); 
+console.log(arr); // ['apple', 'Google', 'Microsoft']
+
+// Finally, a friendly reminder, the sort() method will Arraybe modified directly, and the result it returns is still the current Array:
+var a1 = ['B', 'A', 'C'];
+var a2 = a1.sort();
+console.log(a1); // ['A', 'B', 'C']
+console.log(a2); // ['A', 'B', 'C']
+console.log(a1 === a2); // true, a1和a2是同一对象
