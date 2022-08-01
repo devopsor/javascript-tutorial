@@ -935,4 +935,74 @@ three(
       }
   )
   )();   // print 5 (ouput 5 times)
-  
+  console.log("\n");
+  /////////////////////////////////////////////////////////////////Arrow Function///////////////////////////////////////////////////////////////////////////////////
+  // The ES6 standard has added a new function: Arrow Function.
+  // Why is it called Arrow Function? Because its definition uses an arrow:
+  // y => x * x
+  // The arrow function above is equivalent to:
+//   function (x) {
+//     return x * x;
+// }
+
+// Before continuing to learn about arrow functions, please test if your browser supports ES6 Arrow Function:
+var fn = x => x * x;
+console.log(fn(3));
+
+// Arrow functions are equivalent to anonymous functions and simplify function definitions. 
+// There are two forms of arrow function, one is like the above, which contains only one expression, 
+// and even the { ... } sum returnis omitted.
+//  There is also one that can contain multiple statements, in which case the { ... } sum cannot be omitted return:
+x => {
+  if (x > 0) {
+      return x * x;
+  }
+  else {
+      return - x * x;
+  }
+}
+
+// this
+// Arrow functions seem to be a shorthand for anonymous functions, 
+// but in fact, there is an obvious difference between arrow functions and anonymous functions: 
+// this lexical scope inside the arrow function is determined by the context.
+// Recalling the previous example, the this following example does not give the expected result due to the mishandling of 
+// the binding by the JavaScript function:
+var obj = {
+  birth: 1990,
+  getAge: function () {
+      var b = this.birth; // 1990
+      var fn = function () {
+          return new Date().getFullYear() - this.birth; // this points to window or undefined
+      };
+      return fn();
+  }
+};
+console.log('\n');
+
+// Now, the fully fixed this pointer of arrow functions this always points to the lexical scope, which is the outer caller obj:
+var obj = {
+  birth: 1990,
+  getAge: function () {
+      var b = this.birth; // 1990
+      var fn = () => new Date().getFullYear() - this.birth; // this points to obj
+      return fn();
+  }
+};
+console.log(obj.getAge()); // 32
+
+// If you use arrow functions, the previous hack is written:
+// var that = this;
+// is no longer needed.
+
+// Since this the arrow function has been bound according to the lexical scope, 
+// when using call() or apply() calling the arrow function, it cannot thisbe bound, that is, the first parameter passed in is ignored:
+var obj = {
+  birth: 1990,
+  getAge: function (year) {
+      var b = this.birth; // 1990
+      var fn = (y) => y - this.birth; // this.birth remains 1990
+      return fn.call({birth:2000}, year);
+  }
+};
+console.log(obj.getAge(2015)); // 25
