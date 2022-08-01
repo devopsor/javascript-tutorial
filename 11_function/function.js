@@ -693,14 +693,13 @@ console.log(arr.every(function (s) {
 })); // false, because not every element is all lowercase
 
 
-//Find
+// Find
 // The method is used to find the first element that matches the condition,
 //  if found, return this element, otherwise, return undefined:
-var arr = ['Apple', 'pear', 'orange'];
+var arr = ['Apple', 'orange', 'PEAR'];
 console.log(arr.find(function (s) {
     return s.toLowerCase() === s;
 })); // 'pear', Because pear is all lowercase
-
 console.log(arr.find(function (s) {
     return s.toUpperCase() === s;
 })); // undefined, because there are no all-caps elements
@@ -726,3 +725,214 @@ arr.forEach(console.log); // print each element in turn
 // Apple 0 (3) ['Apple', 'pear', 'orange']
 // pear 1 (3) ['Apple', 'pear', 'orange']
 // orange 2 (3) ['Apple', 'pear', 'orange']
+console.log('\n');
+
+///////////////////////////////////////////////////////////////////////////Closure////////////////////////////////////////////////////////////////////////////
+// function as return value
+// In addition to accepting functions as parameters, higher-order functions can also return functions as result values.
+// Let's implement a pair Arraysummation. Typically, the summation function is defined like this:
+var arr = [1,2,3,4,5];
+
+var result = arr.reduce((acc, curr) => acc + curr, 0);
+console.log(result);
+
+var result = arr.reduce(
+    function (acc, curr) { 
+      return acc + curr 
+    }, 0
+);
+console.log(result);
+
+var set = new Set([1, 2, 3, 4, 5]);
+var result = Array.from(set).reduce((acc, curr) => acc + curr, 0);
+console.log(result);  // 15
+
+// But what if you don't need to sum it right away, but later in the code, recompute it as needed? 
+// Instead of returning the result of the summation, it is possible to return the function of the summation
+function lazy_sum(arr) {
+  var sum = function () {
+      return arr.reduce(function (x, y) {
+          return x + y;
+      }, 0);
+  }
+  return sum;
+}
+var fun = lazy_sum([1, 2, 3, 4, 5]); 
+console.log(fun);  // function sum()
+console.log(fun()); // 15
+// In this example,  lazy_sum defines a function in the function sum, 
+// and the inner function sum can refer lazy_sum to the parameters and local variables of the outer function. 
+// When the lazy_sum function is returned sum, the relevant parameters and variables are saved in the returned function, 
+// which is called "" The program structure of "Closure" has great power.
+
+// Note again that when we call lazy_sum(), each call returns a new function, even if the same parameters are passed in:
+var f1 = lazy_sum([1, 2, 3, 4, 5]);
+var f2 = lazy_sum([1, 2, 3, 4]);
+console.log(f1 === f2); // false
+// The call results of f1() and f2() do not affect each other.
+console.log(f1());
+console.log(f2());
+
+// Closure
+// Note that the returned function references local variables within its definition arr, 
+// so when a function returns a function, its internal local variables are also referenced by the new function, 
+// so closures are simple to use, but not easy to implement.
+// Another issue to be aware of is that the returned function does not execute immediately,
+//  but does not execute until it is called f(). Let's look at an example:
+
+function count() {
+  var arr = [];
+  for (var i=1; i<=3; i++) {
+      arr.push(function () {
+          return i * i;
+      });
+  }
+  return arr;
+}
+
+var results = count();
+var f1 = results[0];
+var f2 = results[1];
+var f3 = results[2];
+console.log(f1);  // f(){ return i*i;}
+console.log(f2);  // f(){ return i*i;}
+console.log(f3);  // f(){ return i*i;}
+// In the above example, each time through the loop, a new function is created, 
+// and then the three functions created are added to one Array and returned.
+// You might think that calling f1(), f2()and f3()the result should be 1, 4, 9, but the actual result is:
+console.log(f1()); // 16
+console.log(f2()); // 16
+console.log(f3()); // 16
+console.log('\n');
+// What if the loop variable must be referenced? The method is to create another function and 
+// use the function's parameters to bind the current value of the loop variable. 
+// No matter how the loop variable changes subsequently, the value bound to the function parameter remains unchanged:
+function count() {
+  var arr = [];
+  for (var i=1; i<=3; i++) {
+      arr.push((function (n) {
+          return function () {
+              return n * n;
+          }
+      })(i));
+  }
+  return arr;
+}
+
+var results = count();
+var f1 = results[0];  
+var f2 = results[1];
+var f3 = results[2];
+console.log(f1);
+console.log(f2);
+console.log(f3);
+console.log(f1()); // 1
+console.log(f2()); // 4
+console.log(f3()); // 9
+console.log('\n');
+
+// Note the use of a "create an anonymous function and execute it immediately" syntax:
+console.log((function (x) { return x * x;})(3));
+
+// In theory, creating an anonymous function and executing it immediately could be written like this:
+// function (x) { return x * x } (3);
+
+// However, due to the problem of JavaScript syntax parsing, a Syntax Error error will be reported, 
+// so the entire function definition needs to be enclosed in parentheses:
+// (function (x) { return x * x }) (3);
+
+// Usually, an anonymous function that executes immediately can take the function body apart, usually written like this:
+// (function (x) {
+//   return x * x;
+// })(3);
+
+// Closures are very powerful.
+// In object-oriented programming languages, such as Java and C++, 
+// to encapsulate a private variable inside an object, private member variable can be modified with.
+// In languages ​​with no classmechanism, only functions, with the help of closures, 
+// it is also possible to encapsulate a private variable. We create a counter in JavaScript:
+function create_object(initial) {
+  var x = initial || 0;
+  return {
+      initilize: function () {
+          return x;
+      },
+      increment: function () {
+        x += 1;
+        return x;
+    }
+  }
+}
+console.log('\n');
+// It works like this:
+var c1 = create_object();
+console.log(c1.initilize()); // 1
+console.log(c1.increment()); // 2
+console.log('\n');
+var c2 = create_object(10);
+console.log(c2.initilize()); // 11
+console.log(c2.increment()); // 12
+console.log('\n');
+// In the returned object, a closure is implemented, which carries local variables x, 
+// and the variables are not accessible at all from outside code x. In other words, 
+// a closure is a function that carries state, and its state can be completely hidden from the outside world.
+
+// Closures can also turn multi-argument functions into single-argument functions. 
+// For example, functions can be used to compute x y Math.pow(x, y) , but considering that x 2 or x 3 are frequently computed , 
+// we can use closures to create new functions pow2 sum pow3:
+function make_pow(n) {
+  return function (x) {
+      return Math.pow(x, n);
+  }
+}
+var pow2 = make_pow(2);
+var pow3 = make_pow(3);
+
+console.log(pow2(5)); // 25
+console.log(pow3(7)); // 343
+
+
+// Open Mind
+// define the number 0:
+var zero = function(f) {
+  return function (x) {
+      return x;
+  }
+};
+
+// define number 1:
+var one = function (f) {
+  return function (x) {
+      return f(x);
+  }
+};
+
+// define addition:
+function add(n, m) {
+  return function (f) {
+      return function (x) {
+          return m(f)(n(f)(x));
+      }
+  }
+}
+// define 2 = 1 + 1
+var two = add(one, one);
+var three = add(one, two);
+var five = add(two, three);
+ 
+(
+three(
+    function () {
+      console.log('print 3');
+    }
+)
+)();  // print 3 (output 3  times)
+
+(
+  five(
+      function () {
+        console.log('print 5');
+      }
+  )
+  )();   // print 5 (ouput 5 times)
+  
