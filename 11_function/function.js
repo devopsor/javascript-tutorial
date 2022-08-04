@@ -1006,3 +1006,103 @@ var obj = {
   }
 };
 console.log(obj.getAge(2015)); // 25
+console.log('\n');
+
+/////////////////////////////////////////////////////////////////////////Generator //////////////////////////////////////////////////////////////////////////////////
+// Generator (generator) is a new data type introduced by the ES6 standard. 
+// A generator looks like a function, but can return multiple times.
+// Let's review the concept of functions first. A function is a complete piece of code. 
+// To call a function is to pass in parameters and return the result:
+function foo(x) {
+    return x + x;
+}
+var r = foo(1); 
+console.log(r);  //2
+console.log('\n');
+
+// To write a function that produces the Fibonacci sequence, you can write:
+function fib(max) {
+    var
+        t,
+        a = 0,
+        b = 1,
+        arr = [0, 1];
+    while (arr.length < max) {
+        [a, b] = [b, a + b];
+        arr.push(b);
+    }
+    return arr;
+}
+console.log(fib(5)); // [0, 1, 1, 2, 3]
+console.log(fib(10)); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+console.log('\n');
+
+// A function can only return once, so it must return one Array. 
+// However, if you replace it with a generator, you can return a number at a time, 
+// and return it multiple times. Use generators to rewrite as follows:
+function* fibona(max) {
+    var
+        t,
+        a = 0,
+        b = 1,
+        n = 0;
+    while (n < max) {
+        yield a;
+        [a, b] = [b, a + b];
+        n ++;
+    }
+    return;
+}
+console.log(fibona(5));  //  {[[GeneratorState]]: 'suspended'}
+console.log('\n');
+// Calling a generator directly is not the same as calling a function. 
+// It fibona(5)just creates a generator object and doesn't execute it yet.
+// There are two ways to call the generator object, 
+// one is to continuously call the next()method of the generator object:
+var f = fibona(5);
+console.log(f.next()); // {value: 0, done: false}
+console.log(f.next());// {value: 1, done: false}
+console.log(f.next());// {value: 1, done: false}
+console.log(f.next());// {value: 2, done: false}
+console.log(f.next());// {value: 3, done: false}
+console.log(f.next());// {value: undefined, done: true}
+console.log('\n');
+// next()The method executes the generator's code, then yield x; 
+// returns an object each time it is encountered 
+// {value: x, done: true/false},  and then "pauses". The return value 
+//  value: yield the return value, 
+//  done:  indicating whether the generator has finished executing. If yes , then done is the return value.
+//  true value return
+
+// When the execution reaches the end done,true 
+// the generator object has been completely executed, and do not continue to call next().
+// The second method is to for ... ofiterate the generator object directly with a loop, 
+// which does not require our own judgment done:
+function* fibo(max) {
+    var
+        t,
+        a = 0,
+        b = 1,
+        n = 0;
+    while (n < max) {
+        yield a;  // return multiple times
+        [a, b] = [b, a + b];
+        n ++;
+    }
+}
+for (var x of fibo(10)) {
+    console.log(x); // 0, 1, 1, 2, 3,5,8,13,21,34
+}
+console.log('\n');
+
+function *test1(x){
+    for(var i=0;i<x; i++){
+        yield i; // return multiple times
+    }
+}
+for(var x of test1(10)){
+    console.log(x);
+}
+console.log('\n');
+
+
