@@ -138,3 +138,89 @@ var simon = createAdmin({
 });
 
 console.log(simon.grade); // 1
+
+////////////////////////////////////////////////////////////////ProtoType Inherits//////////////////////////////////////////////////////////////////////
+function inherits(Child, Parent) {
+    var F = function () {};
+    F.prototype = Parent.prototype;
+    Child.prototype = new F();
+    Child.prototype.constructor = Child;
+}
+
+function Student1(props) {
+    this.name = props.name || 'Unnamed';
+}
+
+Student1.prototype.hello = function () {
+    console.log('Hello, ' + this.name + '!');
+}
+
+function PrimaryStudent(props) {
+    Student1.call(this, props);
+    this.grade = props.grade || 1;
+}
+
+// Implement the prototypal inheritance chain:
+inherits(PrimaryStudent, Student1);
+
+// Bind other methods to the PrimaryStudent prototype:
+PrimaryStudent.prototype.getGrade = function () {
+    return this.grade;
+};
+
+p = new PrimaryStudent(
+    {
+        'name':'Michael',
+        'grade':'90'
+    }
+
+);
+p.hello();  //Hello, Michael!
+console.log(p.getGrade()); //90
+
+
+////////////////////////////////////////////////////////////////////////Class Inherit/////////////////////////////////////////////////////////////////
+// function Student2(name) {
+//     this.name = name;
+// }
+
+// Student2.prototype.hello = function () {
+//     console.log('Hello, ' + this.name + '!');
+// }
+
+class Student2 {
+    constructor(name) {
+        this.name = name;
+    }
+
+    hello() {
+        console.log('Hello, ' + this.name + '!');
+    }
+}
+
+// If you compare it, you can find that classthe definition of contains the constructor constructor 
+// and the function defined on the prototype object hello() (note that there are no functionkeywords), 
+// which avoids Student.prototype.hello = function () {...} such scattered code.
+// Finally, the Student2 code to create an object is exactly the same as in the previous chapter:
+var michael = new Student2('michael');
+michael.hello();  // Hello, michael!
+
+////////////////////////////////////////////////////////////////class inheritance////////////////////////////////////////////////////////////////
+// Another huge benefit of using classdefined objects is that inheritance is easier. 
+// Think about the amount of code we Student derive from one that needs to be written. 
+// PrimaryStudent Now, the intermediate objects of prototypal inheritance, the constructors of prototype objects, 
+// etc. do not need to be considered, and are extends implemented directly by:
+class PrimaryStudent2 extends Student2 {
+    constructor(name, grade) {
+        super(name); // Remember to use super to call the constructor of the parent class!
+        this.grade = grade;
+    }
+
+    myGrade() {
+        console.log('I am at grade ' + this.grade);
+    }
+}
+
+p2 =new  PrimaryStudent2('James', 99);
+p2.hello();  //Hello, James!
+p2.myGrade();  //99
