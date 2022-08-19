@@ -1,0 +1,95 @@
+<!-- Add Dom: 
+    Add a child node under the DOM node, which is equivalent to dynamically 
+    adding an HTML node;
+ -->
+<html>
+  <body>
+    <div id="app"></div>
+
+    <p id="js">JavaScript</p>
+    <div id="list">
+        <p id="java">Java</p>
+        <p id="python">Python</p>
+        <p id="scheme">Scheme</p>
+    </div>
+
+
+    <div id="list1">
+        <p id="java">Java</p>
+        <p id="python1">Python</p>
+        <p id="scheme">Scheme</p>
+    </div>
+
+
+    <div id="list2">
+        <p id="java">Java</p>
+        <p id="haskell">Haskell</p>
+        <p id="python">Python</p>
+        <p id="scheme">Scheme</p>
+    </div>
+
+    <script type="text/javascript">
+      // Select the div element with 'app' id
+      const app = document.getElementById('app');
+      // Create a new H1 element
+      const header = document.createElement('h1');
+      // Create a new text node for the H1 element
+      const headerContent = document.createTextNode('Develop. Preview. Ship. 🚀',);
+      // Append the text to the H1 element
+      header.appendChild(headerContent);
+      // Place the H1 element inside the div
+      app.appendChild(header);
+
+    //   There are two ways to insert new nodes. 
+    // One is to use appendChild, to add a child node to the last child node of the parent node
+      var js = document.getElementById('js'),
+            list = document.getElementById('list');
+        list.appendChild(js);
+
+        //More often we will create a new node from zero and insert it at the specified position:
+        var  list = document.getElementById('list'),
+            haskell = document.createElement('p');
+        haskell.id = 'haskell';
+        haskell.innerText = 'Haskell';
+        list.appendChild(haskell);
+        // <div id="list">
+        //     <p id="java">Java</p>
+        //     <p id="python">Python</p>
+        //     <p id="scheme">Scheme</p>
+        //     <p id="haskell">Haskell</p>
+        // </div>
+
+        var d = document.createElement('style');
+        d.setAttribute('type', 'text/css');
+        d.innerHTML = 'p { color: red }';
+        // <style type="text/css">p { color: red }</style>
+        document.getElementsByTagName('head')[0].appendChild(d);
+
+
+        // insertBefore
+
+        // What if we want to insert the child node at the specified position? 
+        // Can be used parentElement.insertBefore(newElement, referenceElement);, 
+        //child nodes will be inserted referenceElement before.
+
+        // take the above HTML as an example, assuming we want to Haskell insert Python1 before:
+        var  list = document.getElementById('list1'),
+            ref = document.getElementById('python1'),
+            haskell = document.createElement('p');
+        haskell.id = 'haskell';
+        haskell.innerText = 'Haskell';
+        list.insertBefore(haskell, ref);
+
+
+        var
+            i, c,
+            list = document.getElementById('list2');
+        for (i = 0; i < list.children.length; i++) {
+            c = list.children[i];
+            console.log(c);
+        }
+
+
+    </script>
+  </body>
+</html>

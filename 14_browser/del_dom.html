@@ -1,0 +1,39 @@
+<!-- index.html -->
+<!-- 
+    Deleting a DOM node is much easier than inserting it.
+-->
+
+<!-- Delete Dom: 
+    To delete a node, first get the node itself and its parent node, 
+    and then call the parent node removeChildto delete itself:
+ -->
+<html>
+  <body>
+
+    <div id="parent">
+        <p>First</p>
+        <p>Second</p>
+    </div>
+
+    <ul id="test-list">
+        <li>JavaScript</li>
+        <li>Swift</li>
+        <li>HTML</li>
+        <li>ANSI C</li>
+        <li>CSS</li>
+        <li>DirectX</li>
+    </ul>
+
+    <script type="text/javascript">
+        var parent = document.getElementById('parent');
+        parent.removeChild(parent.children[0]);
+        // parent.removeChild(parent.children[1]); 
+
+        var parent = document.getElementById('test-list');
+        parent.removeChild(parent.children[0]);
+        for(i= 0; i<4; i++){
+            parent.removeChild(parent.children[0]);
+        }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<!-- 
+        Since the HTML document is a DOM tree after being parsed by the browser, 
+        to change the structure of the HTML, it is necessary to manipulate the DOM through JavaScript. 
+
+        Always remember that the DOM is a tree structure. 
+        Operating a DOM node is actually the following operations:
+
+        Update: 
+        Update the content of the DOM node, which is equivalent to updating the HTML content 
+        represented by the DOM node;
+
+        Traverse: 
+        Traverse the child nodes under the DOM node for further operations;
+
+        Add: 
+        Add a child node under the DOM node, which is equivalent to dynamically adding 
+        an HTML node;
+
+        Delete: 
+        Delete the node from HTML, which is equivalent to deleting the content of 
+        the DOM node and all the child nodes it contains.
+-->
+
+<!-- 
+    Before operating a DOM node, we need to get the DOM node in various ways. 
+     The most common methods are 
+     document.getElementById(): the ID is unique in the HTML document
+     document.getElementsByTagName(): always returns an array of DOM nodes
+     and CSS selectors document.getElementsByClassName(): always returns an array of DOM nodes
+ -->
+
+<!-- 
+    With the HTML DOM, JavaScript can access and change all the elements of 
+    an HTML document.
+    When a web page is loaded, the browser creates a Document Object Model of the page.
+    The HTML DOM model is constructed as a tree of Objects:
+ 
+With the object model, JavaScript gets all the power it needs to create dynamic HTML:
+
+    JavaScript can change all the HTML elements in the page
+    JavaScript can change all the HTML attributes in the page
+    JavaScript can change all the CSS styles in the page
+    JavaScript can remove existing HTML elements and attributes
+    JavaScript can add new HTML elements and attributes
+    JavaScript can react to all existing HTML events in the page
+    JavaScript can create new HTML events in the page
+-->
+
+<!-- Add Dom: 
+    Add a child node under the DOM node, which is equivalent to dynamically 
+    adding an HTML node;
+ -->
+<html>
+  <body>
+    <div id="app"></div>
+    <script type="text/javascript">
+      // Select the div element with 'app' id
+      const app = document.getElementById('app');
+      // Create a new H1 element
+      const header = document.createElement('h1');
+      // Create a new text node for the H1 element
+      const headerContent = document.createTextNode('Develop. Preview. Ship. 🚀',);
+      // Append the text to the H1 element
+      header.appendChild(headerContent);
+      // Place the H1 element inside the div
+      app.appendChild(header);
+    </script>
+  </body>
+</html>
