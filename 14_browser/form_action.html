@@ -1,0 +1,209 @@
+<!-- Form Action -->
+<!-- 
+    Manipulating a form with JavaScript is similar to manipulating the DOM, because the form itself is 
+    also a DOM tree.
+    However, the input box, drop-down box, etc. of the form can receive user input, so using JavaScript 
+    to operate the form can obtain the content input by the user, or set new content for an input box.
+
+    The input controls of HTML forms mainly include the following:
+    The Text box
+        <input type="text">, is used to enter text;
+    The password box
+        <input type="password">, is used to enter the password;
+    Radio box
+        <input type="radio">, is used to select an item;
+    Check boxes 
+        <input type="checkbox">, are used to select multiple items;
+    The drop-down box
+        <select>, is used to select an item;
+    Hidden text
+        <input type="hidden">, is invisible to the user, 
+    but the hidden text is sent to the server when the form is submitted.
+   -->
+<html>
+    <body>
+        <!-- Get Value -->
+        <input type="text" id="email1" value="FormAction">
+        <label>
+            <input type="radio" name="weekday" id="monday" value="1" checked>Monday
+        </label>
+        <label>
+            <input type="radio" name="weekday" id="tuesday" value="2">Tuesday
+        </label>
+        
+         <!--Set Value -->
+         <input type="text" id="email2">
+
+         <!-- 
+            HTML5 controls
+            HTML5 has added a large number of standard controls, commonly used ones include 
+                date, 
+                datetime, 
+                datetime-local, 
+                color
+            etc. They all use <input> tags:
+         -->
+         <div>
+            <label>Date</label>
+            <input type="date" value="2021-12-02">
+         </div>
+         <div>
+            <label>Datetime</label>
+            <input type="datetime" value="2000-09-17T19:22Z">
+         </div>
+         <div>
+            <label>Datetime-Local</label>
+            <input type="datetime-local" value="2021-12-02T20:21:12">
+         </div>
+         <div>
+            <label>Color</label>
+            <input type="color" value="#ff0000">
+         </div>
+         <div>
+            <label for="month">Born Month</label>
+            <input id="month" type="month" name="month" value="2001-06">
+        </div>
+        <div>
+            <label for="number">Number</label>
+            <input id="number" type="number" value="42">
+        </div>
+
+        <p>Audio settings:</p>
+
+        <div>
+          <input type="range" id="volume" name="volume"
+                 min="0" max="11">
+          <label for="volume">Volume</label>
+        </div>
+        
+        <div>
+          <input type="range" id="cowbell" name="cowbell" 
+                 min="0" max="100" value="90" step="10">
+          <label for="cowbell">Cowbell</label>
+        </div>
+        <div>
+            <label for="site-search">Search the site:</label>
+            <input type="search" id="site-search" name="q">
+            <button>Search</button>
+        </div>
+
+        <div>
+            <label for="phone">Enter your phone number:</label>
+            <input type="tel" id="phone" name="phone"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required>
+            <small>Format: 123-456-7890</small>
+        </div>
+        <div>
+            <label for="week">Choose a week in May or June:</label>
+            <input type="week" name="week" id="camp-week" min="2018-W18" max="2018-W26" required>
+        </div>
+
+        <div>
+            <p>Sign in to your account:</p>
+            <div>
+                <label for="userId">User ID</label>
+                <input type="text" id="userId" name="userId">
+            </div>
+            <input type="image" id="image" alt="Login" src="images.png" width="100" height="50">
+        </div>
+
+        <div>
+            <label for="appt">Choose a time for your meeting:</label>
+            <input type="time" id="appt" name="appt" min="09:00" max="18:00" required>
+            <small>Office hours are 9am to 6pm</small>
+        </div>
+        
+        <!-- 
+            Submit Form
+            Finally, JavaScript can handle form submissions in two ways
+            
+        -->
+        <div>
+            <form id="test-form1">
+                <input type="text" name="test">
+                <button type="button" onclick="doSubmitForm()">Submit</button>
+            </form>
+        </div>
+
+        <div>
+            <form id="test-form2" onsubmit="return checkForm1()">
+                <input type="text" name="test">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <!-- For example, many login forms expect the user to enter a username and password, but, 
+            for security reasons, the plaintext password is not transmitted when the form is submitted, 
+            but the MD5 of the password. Ordinary JavaScript developers would directly modify <input>: 
+        -->
+        <div>
+            <form id="login-form" method="post" onsubmit="return checkForm2()">
+                username:<input type="text" id="username" name="username"><br>
+                <!-- Notice that idthe for md5-passwordis <input>marked name="password", 
+                    while the user-entered id for input-password has <input> no name attribute. 
+                    Data without name attributes <input> will not be submitted -->
+                password:<input type="password" id="input-password"><br>
+                <input type="hidden" id="md5-password" name="password">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+    </body>
+
+    <script>
+        // Get Value 
+        var email1 = document.getElementById('email1');
+        console.log(email1.value);
+        
+        // This approach can be applied to text, password, hiddenand select. 
+        // However, for radio buttons and checkboxes, the value attribute returns always the HTML 
+        // preset value, and what we need to get is whether the user "ticked" the option, so we should 
+        // use checked judgment:
+        var monday = document.getElementById('monday');
+        var tuesday = document.getElementById('tuesday');
+        console.log(monday.value); // '1'
+        console.log(tuesday.value); // '2'
+        console.log(monday.checked); // true
+        console.log(tuesday.checked); // false
+
+        // Set Value 
+        var email2 = document.getElementById('email2');
+        email2.value = "test@example.com";
+        console.log(email2.value);
+        
+        // Submit Form
+        // Finally, JavaScript can handle form submissions in two ways
+        //First way
+        // The disadvantage of this method is that it disrupts the normal submission of the form by the browser. 
+
+        // The browser <button type="submit"> submits the form by default when it is clicked, or when the user presses
+        //  the Enter key in the last input box.
+        function doSubmitForm() {
+            var form = document.getElementById('test-form1');
+            form.submit();
+        }
+
+        // The second way is to respond to <form> its own onsubmit(※) events and make changes 
+        // when submitting the form:
+        function checkForm1() {
+            console.log('asdf');
+            var form = document.getElementById('test-form2');
+            // Note that you need return true to tell the browser to continue to submit. 
+            // If so return false, the browser will not continue to submit the form. 
+            // This situation usually corresponds to the user's input error. After prompting the user with 
+            // an error message, the submission of the form is terminated.
+            return true;
+        }
+
+        function checkForm2() {
+            var input_pwd = document.getElementById('input-password');
+            var md5_pwd = document.getElementById('md5-password');
+            console.log(md5_pwd.value);
+            // md5_pwd.value = toMD5(input_pwd.value);
+            console.log(md5_pwd.value);
+            return true;
+        }
+
+    </script>
+</html>

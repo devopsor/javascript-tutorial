@@ -1,88 +1,88 @@
 <!DOCTYPE html>
 
-	<body>
-		<dl id="drink-menu" style="border:solid 1px #ccc;padding:6px;">
-			<dt>mocha</dt>
-			<dd>hot mocha</dd>
-			<dt>juice</dt>
-			<dd>freshly squeezed apple juice</dd>
-		</dl>
-	</body>
-	
-	<script>
-		'use strict';
-		/**********window***************/
-		// JavaScript can get many objects provided by the browser and manipulate them.
-		console.log('window inner size: ' + window.innerWidth + ' x ' + window.innerHeight);
-		
-		//Correspondingly, there is also an outerWidth and outerHeight attribute, which can get the entire width and height of the browser window.
-		console.log('window outerWidth size: ' + window.outerWidth + ' x ' + window.outerHeight);
-		
-		
-		/********navigator********/
-		// The object represents information about the browser, and the most commonly used properties include:
-		console.log('appName = ' + navigator.appName);
-		console.log('appVersion = ' + navigator.appVersion);
-		console.log('language = ' + navigator.language);
-		console.log('platform = ' + navigator.platform);
-		console.log('userAgent = ' + navigator.userAgent);
-		
-		// Note that navigator the information can be easily modified by the user, 
-		// so the value read by JavaScript may not necessarily be correct. if Many beginners like to judge the browser version 
-		// in order to write different codes for different browsers , for example:
-		var width = window.innerWidth || document.body.clientWidth;
-		console.log('width = ' + width);
-		
-		/********screen********/
-		// The object represents the information of the screen, and the commonly used properties are:
-		console.log('Screen size = ' + screen.width + ' x ' + screen.height);
-		
-		
-		/********location********/
-		// The object represents the URL information of the current page. For example, a full URL:
-		console.log(location.href);
+    <body>
+        <dl id="drink-menu" style="border:solid 1px #ccc;padding:6px;">
+            <dt>mocha</dt>
+            <dd>hot mocha</dd>
+            <dt>juice</dt>
+            <dd>freshly squeezed apple juice</dd>
+        </dl>
+    </body>
+    
+    <script>
+        'use strict';
+        /**********window***************/
+        // JavaScript can get many objects provided by the browser and manipulate them.
+        console.log('window inner size: ' + window.innerWidth + ' x ' + window.innerHeight);
+        
+        //Correspondingly, there is also an outerWidth and outerHeight attribute, which can get the entire width and height of the browser window.
+        console.log('window outerWidth size: ' + window.outerWidth + ' x ' + window.outerHeight);
+        
+        
+        /********navigator********/
+        // The object represents information about the browser, and the most commonly used properties include:
+        console.log('appName = ' + navigator.appName);
+        console.log('appVersion = ' + navigator.appVersion);
+        console.log('language = ' + navigator.language);
+        console.log('platform = ' + navigator.platform);
+        console.log('userAgent = ' + navigator.userAgent);
+        
+        // Note that navigator the information can be easily modified by the user, 
+        // so the value read by JavaScript may not necessarily be correct. if Many beginners like to judge the browser version 
+        // in order to write different codes for different browsers , for example:
+        var width = window.innerWidth || document.body.clientWidth;
+        console.log('width = ' + width);
+        
+        /********screen********/
+        // The object represents the information of the screen, and the commonly used properties are:
+        console.log('Screen size = ' + screen.width + ' x ' + screen.height);
+        
+        
+        /********location********/
+        // The object represents the URL information of the current page. For example, a full URL:
+        console.log(location.href);
 
-		/********document********/
-		// The object represents the current page. Since HTML is represented as a tree structure in the form of DOM in the browser, 
-		// the document object is the root node of the entire DOM tree.
-		console.log(document.title);
-		document.title = 'JavaScript Demo';
-		console.log(document.title);
-		
-		var menu = document.getElementById('drink-menu');
-		console.log(menu);
-		var drinks = document.getElementsByTagName('dt');
-		var i, s;
+        /********document********/
+        // The object represents the current page. Since HTML is represented as a tree structure in the form of DOM in the browser, 
+        // the document object is the root node of the entire DOM tree.
+        console.log(document.title);
+        document.title = 'JavaScript Demo';
+        console.log(document.title);
+        
+        var menu = document.getElementById('drink-menu');
+        console.log(menu);
+        var drinks = document.getElementsByTagName('dt');
+        var i, s;
 
-		s='Service Menu:';
-		for (i=0;i< drinks.length;i++) {
-		    s = s+drinks[i].innerHTML+',';
-		}
-		console.log(s);
-		
-		/********cookie**********/
-		// Cookies are key-value identifiers sent by the server. 
-		// Because the HTTP protocol is stateless, but the server needs to distinguish which user sent the request, 
-		// it can use Cookie to distinguish. After a user successfully logs in, the server sends a cookie to the browser. 
-		// For example user=ABC123XYZ(encrypted string)..., after the browser accesses the website, it will attach the cookie to the request header, 
-		// and the server can distinguish the user according to the cookie.
-		// Cookies can also store some website settings, such as the language in which pages are displayed, etc.
-		console.log(document.cookie);
-		// Since JavaScript can read the cookie of the page, and the user's login information is usually stored in the cookie, 
-		// this creates a huge security risk, because the introduction of third-party JavaScript code into the HTML page is allowed:
-		// To ensure security, server-side cookies should always be used when setting cookies httpOnly
-		
-		/********history**********/
-		// The object saves the browser's history, and JavaScript can call historythe object's back()or forward (), 
-		// which is equivalent to the user clicking the browser's "back" or "forward" button.
-		// This object is a legacy object. For modern Web pages, due to the heavy use of AJAX and page interaction, 
-		// simple and crude calls history.back()may make users very angry.
-		// When beginners start designing Web pages, they like to be called when the login page is successfully logged in history.back(), 
-		// trying to return to the page before login. This is a wrong approach.
-		// Under no circumstances should you use history this object.
-		
-		
-	</script>
+        s='Service Menu:';
+        for (i=0;i< drinks.length;i++) {
+            s = s+drinks[i].innerHTML+',';
+        }
+        console.log(s);
+        
+        /********cookie**********/
+        // Cookies are key-value identifiers sent by the server. 
+        // Because the HTTP protocol is stateless, but the server needs to distinguish which user sent the request, 
+        // it can use Cookie to distinguish. After a user successfully logs in, the server sends a cookie to the browser. 
+        // For example user=ABC123XYZ(encrypted string)..., after the browser accesses the website, it will attach the cookie to the request header, 
+        // and the server can distinguish the user according to the cookie.
+        // Cookies can also store some website settings, such as the language in which pages are displayed, etc.
+        console.log(document.cookie);
+        // Since JavaScript can read the cookie of the page, and the user's login information is usually stored in the cookie, 
+        // this creates a huge security risk, because the introduction of third-party JavaScript code into the HTML page is allowed:
+        // To ensure security, server-side cookies should always be used when setting cookies httpOnly
+        
+        /********history**********/
+        // The object saves the browser's history, and JavaScript can call historythe object's back()or forward (), 
+        // which is equivalent to the user clicking the browser's "back" or "forward" button.
+        // This object is a legacy object. For modern Web pages, due to the heavy use of AJAX and page interaction, 
+        // simple and crude calls history.back()may make users very angry.
+        // When beginners start designing Web pages, they like to be called when the login page is successfully logged in history.back(), 
+        // trying to return to the page before login. This is a wrong approach.
+        // Under no circumstances should you use history this object.
+        
+        
+    </script>
 
 
 
