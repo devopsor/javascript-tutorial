@@ -1,0 +1,67 @@
+<!-- 
+    Find Selector
+    Filters are generally not used alone, 
+    they are usually attached to selectors to help us locate elements more precisely. 
+    Observe the effect of the filter:
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //Add note
+            var langs = $('#test-div1>ul');
+            langs.append('<li><span>Haskell</span></li>');
+
+            var pascal = document.createElement('li');
+            pascal.innerHTML = '<span>Pascal</span>';
+            langs.append(pascal);
+
+            //Remove
+            var li = $('#test-div2>ul>li');
+            li.remove();
+         
+            //Before And After
+            var lang3 = $('#test-div3>ul');
+            var javascript = $('#test-div3>ul>li:first-child');
+            javascript.after('<li><span>Lua</span></li>');
+        
+            var lua = $('#test-div3>ul>li:nth-child(2)');
+            lua.after('<li><span>Pascal</span></li>');
+
+            var swift = $('#test-div3>ul>li:last-child');
+            swift.before('<li><span>Ruby</span></li>');
+        });
+    </script>
+</head>
+
+<body>
+    <div class="testing">
+        <div id="test-div1">
+            <ul>
+                <li><span>JavaScript</span></li>
+                <li><span>Python</span></li>
+                <li><span>Swift</span></li>
+            </ul>
+        </div>
+
+        <div id="test-div2">
+            <ul>
+                <li><span>JavaScript</span></li>
+                <li><span>Python</span></li>
+                <li><span>Swift</span></li>
+            </ul>
+        </div>
+
+        <div id="test-div3">
+            <ul>
+                <li><span>JavaScript</span></li>
+                <li><span>Python</span></li>
+                <li><span>Swift</span></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!-- 
+    Find Selector
+    Filters are generally not used alone, 
+    they are usually attached to selectors to help us locate elements more precisely. 
+    Observe the effect of the filter:
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //Find
+            var lang1 = $('ul.lang1');
+            var python1 =lang1.find('.python');
+            python1.css("background-color", "cyan");
+
+            var lua1 = lang1.find('#lua1')
+            lua1.css("background-color", "yellow");
+            
+            var hsk1 = lang1.find('[name=haskell]');
+            hsk1.css("background-color", "cyan");
+
+            //Parent
+            var lua2 = $('#lua2');
+            var parent2 = lua2.parent();
+            parent2.css("background-color", "yellow");
+            
+            //Pre and Next
+            var lua3 = $('#lua3');
+            lua3.next().css("background-color", "yellow");
+            lua3.prev().css("background-color", "cyan");
+
+            //Filter
+            var lang4 = $('ul.lang4 li'); 
+            lang4.css("background-color", "yellow");
+            lang4.filter('.python').css("background-color", "cyan");
+        
+            //
+            var lang5 = $('ul.lang5 li');
+            lang5.filter(function () {
+                return this.innerHTML.indexOf('J') === 0; 
+            }).css("background-color", "yellow");
+
+            var lang6 = $('ul.lang6 li'); 
+            var my_array = lang6.map(function () {
+                return this.innerHTML;
+            }).get();
+            console.log(my_array);
+            // 0: "JavaScript"
+            // 1: "Python"
+            // 2: "Lua"
+            console.log(my_array[0]);  //Javascript
+
+            var lang7 = $('ul.lang7 li');
+            var js = lang7.first(); // means $('ul.lang li:first-child')
+            console.log(js[0].innerHTML);
+            var haskell = lang7.last(); //means $('ul.lang li:last-child')
+            console.log(haskell[0].innerHTML); //Haskell
+            var sub = lang7.slice(2, 4);
+            console.log(sub[0].innerHTML);  //Lua
+        });
+    </script>
+</head>
+
+<body>
+    <div class="testing">
+        <ul class="lang1">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="lua1">Lua</li>
+            <li name="haskell">Haskell</li>
+        </ul>
+        <ul class="lang2">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="lua2">Lua</li>
+        </ul>
+        <ul class="lang3">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="lua3">Lua</li>
+            <li name="haskell">Haskell</li>
+        </ul>
+        <ul class="lang4">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="lua4">Lua</li>
+        </ul>
+        <ul class="lang5">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="lua5">Lua</li>
+        </ul>
+        <ul class="lang6">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="lua6">Lua</li>
+        </ul>
+        <ul class="lang7">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="lua6">Lua</li>
+            <li name="haskell">Haskell</li>
+        </ul>
+    </div>
+</body>
+
+</html>
