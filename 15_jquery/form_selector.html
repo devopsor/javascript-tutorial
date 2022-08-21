@@ -1,0 +1,63 @@
+<!-- 
+    Form related
+    :input: can choose <input>, <textarea>, <select>and <button>;
+    :file: optional <input type="file">, input[type=file]same as;
+    :checkbox: Check box can be selected, input[type=checkbox]same as;
+    :radio: You can select a radio button, the input[type=radio]same as;
+    :focus: You can select the element of the current input focus, 
+                for example, put the cursor <input>on one, and use $('input:focus')it to select;
+    :checked: Select the currently checked radio box and check box, 
+                and use this selector to get the item selected by the user immediately, 
+                such as $('input[type=radio]:checked');
+    :enabled: You can select the input that can be input normally <input>, <select> etc., 
+                that is, the input that is not grayed out;
+    :disabled: :enabledOn the contrary, select those that cannot be entered.
+-->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>input demo</title>
+    <style>
+        textarea {
+            height: 25px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+
+<body>
+
+    <form>
+        <input type="button" value="Input Button">
+        <input type="checkbox">
+        <input type="file">
+        <input type="hidden">
+        <input type="image">
+        <input type="password">
+        <input type="radio">
+        <input type="reset">
+        <input type="submit">
+        <input type="text">
+        <select>
+            <option>Option</option>
+        </select>
+        <textarea></textarea>
+        <button>Button</button>
+    </form>
+    <div id="messages"></div>
+
+    <script>
+        var allInputs = $(":input");
+        var formChildren = $("form > *");
+        $("#messages").text("Found " + allInputs.length + " inputs and the form has " +
+            formChildren.length + " children.");
+        $("form").submit(function (event) {
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+
+</html>

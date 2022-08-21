@@ -1,0 +1,47 @@
+<!-- 
+    Descendant Selector
+    In addition to basic selectors, jQuery's hierarchical selectors are more flexible and more powerful.
+    Because the structure of the DOM is a hierarchical structure, we often have to choose based on the hierarchical 
+    relationship.
+    If two DOM elements have a hierarchical relationship, they can be $('ancestor descendant')used for selection, 
+    *****************separated by spaces**********************
+
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("div span").css("background-color", "yellow");
+            $('ul li').css("background-color", "cyan");
+            $('ul li.javascript').css("background-color", "yellow");
+            $('ul li#langtest').css("color", "red");
+        });
+    </script>
+</head>
+
+<body>
+    <h2>What will $("div span") select?</h2>
+
+    <h4>This div element has two descendants, p and span:</h4>
+    <div style="border:1px solid black;padding:10px;">
+        <p>This is a paragraph.</p>
+        <span>This is a text inside a span.</span>
+    </div>
+
+    <h4>This div element has also two descendants, p and span:</h4>
+    <div style="border:1px solid black;padding:10px;">
+        <p>This is a paragraph. <span>This is a span element, inside the paragraph.</span></p>
+    </div>
+    <div class="testing">
+        <ul class="lang">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="langtest">Lua</li>
+        </ul>
+    </div>
+</body>
+
+</html>

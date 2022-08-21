@@ -1,0 +1,30 @@
+<!-- 
+    Child Selector
+    The child selector is $('parent>child') similar to the hierarchical selector, 
+    but it defines that the hierarchical relationship must be a parent-child relationship, 
+    that is, the <child> node must be <parent> a direct child(※) node of the node.
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('ul.lang>li.javascript').css("background-color", "yellow");
+            $('div.testing>li.javascript').css("background-color", "cyan")
+        });
+    </script>
+</head>
+
+<body>
+    <div class="testing">
+        <ul class="lang">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="langtest">Lua</li>
+        </ul>
+    </div>
+</body>
+
+</html>

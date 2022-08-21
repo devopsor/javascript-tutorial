@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<head>
+
+</head>
+
+<body>
+    <canvas id="test-stock" width="300" height="200">
+        <p>Current Price: 25.51</p>
+    </canvas>
+</body>
+
+<script>
+    var canvas = document.getElementById('test-stock');
+    if (canvas.getContext) {
+        console.log('Your browser supports canvas!');
+    } else {
+        console.log('Your browser does not support Canvas!');
+    }
+
+</script>
+</html>

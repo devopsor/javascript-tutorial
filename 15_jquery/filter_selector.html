@@ -1,0 +1,59 @@
+<!-- 
+    Filter Selector
+    Filters are generally not used alone, 
+    they are usually attached to selectors to help us locate elements more precisely. 
+    Observe the effect of the filter:
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('ul.lang1 li').css("background-color", "yellow");
+            $('ul.lang2 li:first-child').css("background-color", "cyan");
+            $('ul.lang3 li:last-child').css("background-color", "yellow");
+            $('ul.lang4 li:nth-child(2)').css("background-color", "cyan");
+            $('ul.lang5 li:nth-child(even)').css("background-color", "yellow");
+            $('ul.lang6 li:nth-child(odd)').css("background-color", "cyan");
+        });
+    </script>
+</head>
+
+<body>
+    <div class="testing">
+        <ul class="lang1">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="langtest">Lua</li>
+        </ul>
+        <ul class="lang2">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="langtest">Lua</li>
+        </ul>
+        <ul class="lang3">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="langtest">Lua</li>
+        </ul>
+        <ul class="lang4">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="langtest">Lua</li>
+        </ul>
+        <ul class="lang5">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="langtest">Lua</li>
+        </ul>
+        <ul class="lang6">
+            <li class="javascript">JavaScript</li>
+            <li class="python">Python</li>
+            <li class="lua" id="langtest">Lua</li>
+        </ul>
+    </div>
+</body>
+
+</html>

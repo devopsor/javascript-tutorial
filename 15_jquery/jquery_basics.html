@@ -1,0 +1,111 @@
+<!-- 
+    jQuery Selectors
+    jQuery selectors allow you to select and manipulate HTML element(s).
+
+    jQuery selectors are used to "find" (or select) HTML elements based on their name, id, classes, types, attributes, 
+    values of attributes and much more. It's based on the existing CSS Selectors, and in addition, it has some own 
+    custom selectors.
+
+    All selectors in jQuery start with the dollar sign and parentheses: $().
+    
+    jQuery's selector is to help us quickly locate one or more DOM nodes.
+
+    What is a jQuery object? jQuery objects are like arrays, each element of which is an object that 
+    references a DOM node.
+    #基本セレクタ
+    $("form");       // タグ名="form"
+    $(".className"); // クラス名="className"
+    $("#formId");    // ID="formId"
+
+    #AND指定
+    $("ul.listClass1"); // タグ名="ul" and クラス名="listClass1" 
+    $("ul#listId1");    // タグ名="ul" and ID="listId1"
+
+    #OR指定
+    $("div,.listClass1"); // タグ名="div" or クラス名=listClass1 
+    $("ul,#divId1");      // タグ名="ul"  or ID="divId1"
+
+    #親-子関係
+    $("#root > .node");         // 「ID="root"」を親に持つ「クラス名="node"」 
+    $(".node").parent("#root"); // 「クラス名="node"」の親のうち「ID="root"」の要素
+
+    #先祖-子孫関係
+    $("#root .node");            // 「ID="root"」を先祖に持つ「クラス名="node"」 
+    $(".node").parents("#root"); // 「クラス名="node"」の先祖のうち「ID="root"」の要素
+
+    #兄-弟関係
+    $(".node").siblings(); // 「クラス名="node"」の兄弟（自分を除く）
+
+    #属性
+    $('input[name]');          // タグ名="input" and name属性を持つ
+    $('input[name="quiz1"]');  // タグ名="input" and name属性が"quiz1"と一致
+    $('input[name!="quiz1"]'); // タグ名="input" and name属性が"quiz1"と不一致
+    $('input[name^="quiz1"]'); // タグ名="input" and name属性が"quiz1"と先頭一致
+    $('input[name$="quiz1"]'); // タグ名="input" and name属性が"quiz1"と末尾一致
+    $('input[name*="quiz1"]'); // タグ名="input" and name属性が"quiz1"と部分一致
+
+    #使用可否
+    $('input[type="text"]:enabled');   // 入力可能テキストボックス
+    $('input[type="text"]:disabled');  // 入力禁止テキストボックス
+
+    #選択状態
+    $('input[type="checkbox"]:checked'); // 選択済チェックボックス
+    $('input[type="radio"]:checked');    // 選択済ラジオボタン
+    $('select > option:selected');       // リストボックス・コンボボックス内の選択済要素
+
+    #可視性
+    $('div:hidden');    // 不可視状態になっているdiv要素（display:noneも含む）
+    $('input:hidden');  // 不可視状態になっているinput要素≒$('input[type="hidden"]');
+    $('div:visible');   // 可視状態になっているdiv要素
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#btn1").click(function(){
+            //Find by ID
+            var testdiv = $('#testdiv')
+            var divdom = testdiv.get(0);
+            console.log(divdom);
+            $("p").hide();
+        });
+        $("#btn2").click(function(){
+            // Find by tag
+            var ps = $('p');
+            console.log(ps.length);
+            $("p").show();
+        });
+        $("#btn3").click(function(){
+            // Find by class
+            var red = $('.red');
+            console.log(red.get(0)); //<div class="red green"><p>This is a red.</p></div>
+            console.log(red.get(1)); //<div class="blue green red"><p>This is a green.</p></div>
+            console.log(red.length);
+        });
+    });
+</script>
+</head>
+<body>
+
+<div id="testdiv">
+    <h2>This is a heading</h2>
+    <p>This is a paragraph.</p>
+    <p>This is another paragraph.</p>
+</div>
+
+<div class="red green">
+    <p>This is a red.</p>
+</div>
+<div class="blue green red">
+    <p>This is a green.</p>
+</div>
+
+<button id="btn1">BTN1</button>
+<button id="btn2">BTN2</button>
+<button id="btn3">BTN2</button>
+
+</body>
+</html>
