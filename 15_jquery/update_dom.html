@@ -1,0 +1,103 @@
+<!-- 
+    Find Selector
+    jQuery's selector is very powerful, simple and flexible to use, 
+    but after so long, I got the jQuery object, what do I do?
+
+    The answer, of course, is to operate the corresponding DOM node!
+    Review how troublesome it is to modify the CSS, text, and HTML of the DOM, 
+    and some browsers only have innerHTML, and some browsers support innerText. 
+    With the jQuery object, there is no need to consider browser differences, and all are operated 
+    in a unified manner!
+    Modify Text and HTML
+    text()
+    The and methods of the jQuery object html() get the node's text and raw HTML text, 
+    respectively, for example, the following HTML structure:
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .highlight {
+            color: #dd1144;
+            background-color: #ffd351;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            //Add note
+            var text = $('#test-div1 #test-ul li[name=book]').text(); 
+            console.log(text);  //Java & JavaScript
+            var html  = $('#test-div1 #test-ul li[name=book]').html(); 
+            console.log(html);    //Java &amp; JavaScript
+            // $('#test-ul li').text('JS');
+            $('#test-div2 li.dy>span').css('background-color', '#ffd351').css('color', 'red');
+
+            var div = $('#test-div3');
+            div.css('color', '#00ff00'); 
+            console.log(div.css('color')); // '#000033'
+
+            var div = $('#test-div4');
+            div.hasClass('highlight'); // false
+            div.addClass('highlight'); // 
+            // div.removeClass('highlight'); // 
+
+            var
+                input = $('#test-input'),
+                select = $('#test-select'),
+                textarea = $('#test-textarea');
+
+            console.log(input.val()); // 'test'
+            input.val('abc@example.com'); // abc@example.com
+
+            console.log(select.val()); // 'BJ'
+            select.val('SH'); // Shanghai
+
+            console.log(textarea.val()); // 'Hello'
+            textarea.val('Hi'); // 'Hi'
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="test-div1">
+        <ul id="test-ul">
+            <li class="js">JavaScript</li>
+            <li name="book">Java &amp; JavaScript</li>
+        </ul>
+    </div>
+    <!-- Modify CSS -->
+    <ul id="test-div2">
+        <li class="lang dy"><span>JavaScript</span></li>
+        <li class="lang"><span>Java</span></li>
+        <li class="lang dy"><span>Python</span></li>
+        <li class="lang"><span>Swift</span></li>
+        <li class="lang dy"><span>Scheme</span></li>
+    </ul>
+    <div id="test-div3">
+        <ul id="test-ul">
+            <li class="js">JavaScript</li>
+            <li name="book">Java &amp; JavaScript</li>
+        </ul>
+    </div>
+    <div id="test-div4">
+        <ul id="test-ul">
+            <li class="js">JavaScript</li>
+            <li name="book">Java &amp; JavaScript</li>
+        </ul>
+    </div>
+
+    <!-- Action form -->
+    <!-- For form elements, the jQuery object uniformly provides val() methods to get and 
+        set the corresponding valueattributes: -->
+    <input id="test-input" name="email" value="test">
+    <select id="test-select" name="city">
+        <option value="BJ" selected>Beijing</option>
+        <option value="SH">Shanghai</option>
+        <option value="SZ">Shenzhen</option>
+    </select>
+    <textarea id="test-textarea">Hello</textarea>
+</body>
+</html>
