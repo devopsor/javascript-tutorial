@@ -1,0 +1,166 @@
+<!-- 
+    Dom Event
+    Because JavaScript runs in a single-threaded mode in the browser, 
+    after the page is loaded, once all the JavaScript code on the page has been executed, 
+    the JavaScript code can only be executed by relying on the trigger event.
+
+    After the browser receives the user's mouse or keyboard input, it will automatically trigger the corresponding 
+    event on the corresponding DOM node. If the node has bound the corresponding JavaScript handler function, 
+    this function will be called automatically.
+
+    Since different browsers have different code for binding events, 
+    using jQuery to write code shields the differences between different browsers, and we always write the same code.
+
+    click: 
+        triggered when the mouse is clicked;
+    dblclick: 
+        triggered when the mouse is double-clicked;
+    mouseenter: 
+        triggered when the mouse enters;
+    mouseleave: 
+        triggered when the mouse moves out;
+    mousemove: 
+        triggered when the mouse moves inside the DOM;
+    hover: 
+        two functions are triggered when the mouse enters and exits, 
+        which is equivalent to mouseenter plus mouseleave.
+
+    Keyboard Event
+    Keyboard events only act on the currently focused DOM, usually <input>and <textarea>.
+    keydown: triggered when the keyboard is pressed;
+    keyup: Triggered when the keyboard is released;
+    keypress: Triggered after a key press.
+
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            // $(document).ready(function() {
+            // });
+            // Shorthand for $( document ).ready()
+            $(function() {
+                
+                var href = $('#test-link');
+                // href.on('click', function () {
+                //     alert('Hello!');
+                // });
+                href.click(function(){
+                    alert('Hello World!');
+                })
+                $('#testMouseMoveDiv').mousemove(function (e) {
+                    $('#testMouseMoveSpan').text('pageX = ' + e.pageX + ', pageY = ' + e.pageY);
+                });
+                var input = $('#test-input');
+                input.change(function () {
+                    console.log('changed...');
+                });
+
+                //Event Parameters
+                // For some events, like mousemoveand keypress, we need to get the mouse position and 
+                // the value of the key, otherwise there is no point in listening to these events. 
+                // All events will pass in Event the object as a parameter, you can Event get more information 
+                // from the object:
+                var button1 = $('#testPopupButton1');
+                var button2 = $('#testPopupButton2');
+
+                function popupTestWindow() {
+                    window.open('/');
+                }
+
+                button1.click(function () {
+                    popupTestWindow();
+                });
+
+                button2.click(function () {
+                    setTimeout(popupTestWindow, 3000);
+                });
+
+                //Form Event
+                var
+                    form = $('#test-form'),
+                    langs = form.find('[name=lang]'),
+                    selectAll = form.find('label.selectAll :checkbox'),
+                    selectAllLabel = form.find('label.selectAll span.selectAll'),
+                    deselectAllLabel = form.find('label.selectAll span.deselectAll'),
+                    invertSelect = form.find('a.invertSelect');
+
+                // reset to intial state
+                form.find('*').show().off();
+                form.find(':checkbox').prop('checked', false).off();
+                deselectAllLabel.hide();
+                // 
+                form.off().submit(function (e) {
+                    e.preventDefault();
+                    alert(form.serialize());
+                });
+                selectAll.click(function () {
+                    langs.prop('checked', this.checked);
+                    checkAll();
+                });
+                langs.click(function () {
+                    checkAll();
+                });
+                invertSelect .click(function () {
+                langs.prop('checked', (x, y) => {
+                    return !y;
+                });
+                checkAll();
+                });
+
+                function checkAll(){
+                if ( langs.filter(":checked").length == 5 ) { //
+                    deselectAllLabel.show();//
+                    selectAllLabel.prev().prop('checked', true); //
+                    selectAllLabel.hide(); //
+                } else {
+                    deselectAllLabel.hide();
+                    selectAllLabel.prev().prop('checked', false);
+                    selectAllLabel.show();
+                }
+                }
+            });
+
+        </script>
+    </head>
+
+    <body>
+        <form id="test-form" action="test">
+            <legend>Select languages that you want to learn：</legend>
+            <fieldset>
+                <p>
+                    <label class="selectAll">
+                        <input type="checkbox"> 
+                        <span class="selectAll">Select All</span>
+                        <span class="deselectAll">Deselect All</span>
+                    </label>
+                    <a href="#0" class="invertSelect">InvertSelect</a>
+                </p>
+                <p><label><input type="checkbox" name="lang" value="javascript"> JavaScript</label></p>
+                <p><label><input type="checkbox" name="lang" value="python"> Python</label></p>
+                <p><label><input type="checkbox" name="lang" value="ruby"> Ruby</label></p>
+                <p><label><input type="checkbox" name="lang" value="haskell"> Haskell</label></p>
+                <p><label><input type="checkbox" name="lang" value="scheme"> Scheme</label></p>
+                <p><button type="submit">Submit</button></p>
+            </fieldset>
+        </form>
+        <a id="test-link" href="#0">Click Me</a>
+        <div id="testMouseMoveDiv">
+            <p>Javascript</p>
+            <p>Java</p>
+            <p>Python</p>
+            <p>GoLang</p>
+            <p>PHP</p>
+        </div>
+        <div id="testMouseMoveSpan">
+            <p>Angular</p>
+        </div>
+        <input id="test-input" name="text" value="test"/>
+        <button id="testPopupButton1" type="button">Click Me1</button>
+        <button id="testPopupButton2" type="button">Click Me2</button>
+
+
+
+    </body>
+</html>
