@@ -1,0 +1,101 @@
+<!-- 
+    Animation
+    Using JavaScript to achieve animation, the principle is very simple: we only need to modify the CSS 
+    style of the DOM element at a fixed time interval (for example, 0.1 seconds) each time (for example, 
+    increase the height and width by 10%), it looks like animation .
+    But manually implementing animation effects in JavaScript requires writing very complex code. 
+    If you want to encapsulate animation effects with functions for easy reuse, then there are more things to 
+    consider.
+    Animating with jQuery, the code couldn't be simpler: just one line of code!
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <style>
+            .test-div1 {
+              border: 2px outset red;
+              text-align: center;
+            }
+        </style>
+        <script>
+           $(function(){
+                var button1 = $('#testPopupButton1');
+                var button2 = $('#testPopupButton2');
+
+                button1.click(function () {
+                    var div = $('#test-div1');
+                    // div.hide('fast');
+                    // div.hide(3000);
+                    // div.toggle(3000);
+                    // div.slideUp(3000);
+
+                    div.fadeOut('slow');
+                });
+                button2.click(function () {
+                    var div = $('#test-div1');
+                    // div.show('slow');
+                    // div.slideDown(3000);
+                    // div.slideToggle(3000);
+
+                    div.fadeIn('slow');
+                    // div.fadeToggle('slow');
+                });
+
+                var button3 =  $('#testPopupButton3');
+                var button4 =  $('#testPopupButton4');
+                button3.click(function () {
+                    var div = $('#test-div2');
+                    div.slideDown(2000)
+                    .delay(1000)
+                    .animate({
+                        width: '256px',
+                        height: '256px'
+                    }, 2000)
+                    .delay(1000)
+                    .animate({
+                        width: '128px',
+                        height: '128px'
+                    }, 2000);
+                });
+                button4.click(function () {
+                    var div = $('#test-div2');
+                    div.animate({
+                        opacity: 0.5,
+                        width: '728px',
+                        height: '256px'
+                    }, 3000, function () {
+                        console.log('animation end');
+                        $(this).css('opacity', '1.0').css('width', '128px').css('height', '128px');
+                    });
+                });
+
+                //Why some animations don't work
+                // You may encounter that some animations slideUp() have no effect at all. 
+                // This is because the principle of jQuery animation is to gradually change the value of CSS, 
+                // such as height from 100px gradually to 0. But many DOM elements that are not block 
+                // properties height have no effect at all, so the animation has no effect.
+
+                // In addition, jQuery does not implement background-colorthe correct animation effect, 
+                // and the animate() settings background-color have no effect. In this case, you can use 
+                // CSS3 to transition achieve animation effects.
+           })
+        </script>
+    </head>
+    <body>
+        <h1>The div element</h1>
+        <div id="test-div1" class="test-div1">
+          <h2>This is a heading in a div element</h2>
+          <p>This is some text in a div element.</p>
+        </div>
+        <button id="testPopupButton1" type="button">Btn1</button>
+        <button id="testPopupButton2" type="button">Btn2</button>
+
+        <div id="test-div2" class="test-div1">
+            <h2>This is a heading in a div element</h2>
+            <p>This is some text in a div element.</p>
+        </div>
+        <button id="testPopupButton3" type="button">Btn3</button>
+        <button id="testPopupButton4" type="button">Btn4</button>
+    </body>
+</html>

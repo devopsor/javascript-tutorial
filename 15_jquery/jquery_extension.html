@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+            
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+	<script type="text/javascript" 
+            src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+    </script>
+	<script type="text/javascript">
+        $(function () {
+            $('#test-highlight1 span').highlight1();
+            $('#test-highlight2 span').highlight2({
+                // add options
+                backgroundColor: '#00a8e6',
+                color: '#ffffff'
+            });
+            $('#test-external a').external();
+
+        });
+
+        $.fn.highlight1 = function () {
+            this.css('backgroundColor', '#fffceb').css('color', '#d85030');
+            return this;
+        }
+
+        $.fn.highlight2 = function (options) {
+            var bgcolor = options && options.backgroundColor || '#fffceb';
+            var color = options && options.color || '#d85030';
+            this.css('backgroundColor', bgcolor).css('color', color);
+            return this;
+        }
+
+        $.fn.external = function () {
+            // Each() returned by return returns the result, which supports chained calls:
+            return this.filter('a').each(function () {
+                // Note: the this of the callback function inside each() is bound to the DOM itself!
+                var a = $(this);
+                var url = a.attr('href');
+                if (url && (url.indexOf('http://')===0 || url.indexOf('https://')===0)) {
+                    a.attr('href', '#0')
+                    .removeAttr('target')
+                    .append(' <i class="uk-icon-external-link"></i>')
+                    .click(function () {
+                        if(confirm('Are you sure redirect to ' + url + '？')) {
+                            window.open(url);
+                        }
+                    });
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <div id="test-highlight1">
+        <p>What is <span>jQuery</span></p>
+        <p><span>jQuery</span>is the most popular <span>JavaScript </span>library.</p>
+    </div>
+
+    <div id="test-highlight2">
+        <p>What is <span>jQuery</span> <span>Plugin</span></p>
+        <p><span>jQuery</span> <span>Plugin</span> can extend the function of <span>jQuery</span></p>
+    </div>
+
+    <div id="test-external">
+        <p>How to learn <a href="http://jquery.com">jQuery</a>？</p>
+        <p>First，you should learn <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">JavaScript</a>，and understand basic <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML</a>。</p>
+    </div>
+
+</body>
+</html>
