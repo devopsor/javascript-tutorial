@@ -105,5 +105,180 @@
         // var result = _.uniq(arr,false,function(x){return x.toUpperCase();});
         var result=_.uniq(arr,x=>x.toUpperCase());
         console.log(result);
+        
+        // Bind
+        var str = ' Hello  ';
+        var strfn = str.trim();
+        // var fn = _.bind(strfn, str);  // Uncaught TypeError: Bind must be called on a function
+        var fn = _.bind(str.trim, str);
+        console.log(fn());  // Hello
+        
+        // Partial
+        // partial() It is to create a partial function for a function. What is a partial function?
+        var pow2N = _.partial(Math.pow, 2);
+        console.log( pow2N(3)); // 8
+        var cube = _.partial(Math.pow, 3);
+        console.log(cube(3)); // 27
+        console.log(cube(5)); // 243
+        console.log(cube(10)); // 59049
+        // if you want to create a partial function cube(x)that computes x 3 , you can use it _as 
+        // a placeholder to fix the second parameter
+        var cube = _.partial(Math.pow, _, 3);
+        console.log(cube(3)); // 27
+        console.log(cube(5)); // 125
+        console.log(cube(10)); // 1000
+
+        // Memorize
+        // If a function call is expensive, we may wish to cache the result so that subsequent calls can 
+        // get the result directly. For example, computing the factorial is time-consuming:
+        function factorial(n) {
+            console.log('Start calculate ' + n + '!...');
+            var s = 1, i = n;
+            while (i > 1) {
+                s = s * i;
+                i --;
+            }
+            console.log(n + ' != ' + s);
+            return s;
+        }
+        factorial(10);
+        // Start calculate 10!...
+        // 10 != 3628800
+
+        var factorial = _.memoize(function(n) {
+            console.log('Start calculate ' + n + '!...');
+            var s = 1, i = n;
+            while (i > 1) {
+                s = s * i;
+                i --;
+            }
+            console.log(n + '! = ' + s);
+            return s;
+        });
+        console.log(factorial(10));
+        // Start calculate 10!...
+        // 10 != 3628800
+        console.log('\n');
+        // For the same call, such as two consecutive calls factorial(10), the second call does not calculate, 
+        // but directly returns the cached result after the previous calculation. However, when you calculate 
+        // factorial(9), it will still be recalculated.
+        console.log(factorial(10));
+
+        var factorial = _.memoize(function(n) {
+            console.log('start calculate ' + n + '!...');
+            if (n < 2) {
+                return 1;
+            }
+            return n * factorial(n - 1);
+        });
+        // The output shows that factorial(1)~factorial(10) have been cached:
+        console.log(factorial(10)); // 3628800
+        // there was no output in console 
+        console.log(factorial(9))  // 362880
+
+        // Once
+        // once() a function is guaranteed to be executed and only executed once. 
+        // If you have a method register() that can be executed when the user clicks either of 
+        // the two buttons on the page, you can once() guarantee that the function will only be called once, 
+        // no matter how many times the user clicks:
+        var register = _.once(function () {
+            alert('Register ok!');
+        });
+        register();
+        register();
+        register();
+
+        // Delay
+        var log = _.bind(console.log, console);
+        // You can make a function delay execution, 
+        // the effect setTimeout()is the same, but the code is obviously simpler:
+        _.delay(log, 2000, 'Hello,', 'world!');
+
+
+        // Keys
+        // keys() It is very convenient to return all the keys of an object itself, but not those inherited from 
+        // the prototype chain:
+        function Student(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        var std = new Student('James', 20);
+        console.log(_.keys(std));  // ['name', 'age']
+
+        // AllKeys
+        // In addition to the object's own key, it also includes the keys inherited from the prototype chain:
+        function Student(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Student.prototype.school = 'No.1 Middle School';
+        var std = new Student('James', 20);
+        console.log(_.allKeys(std)); // ['name', 'age', 'school']
+
+        // Values
+        var obj = {
+            name: 'James',
+            age: 20
+        };
+        console.log(_.values(obj));  // ['James', 20]
+
+        // MapObject
+        // mapObject() It is the map version for object:
+        var obj = { a: 1, b: 2, c: 3 };
+        console.log(_.mapObject(obj, (v, k) => 100 + v));  // {a: 101, b: 102, c: 103}
+
+        // Invert
+        // Swap each key-value of the object, the key becomes the value, and the value becomes the key:
+        var obj = {
+            Adam: 90,
+            Lisa: 85,
+            Bart: 59
+        };
+        console.log(_.invert(obj));  // {59: 'Bart', 85: 'Lisa', 90: 'Adam'}
+
+        // Extend・extendOwn
+        // Combine the key-values ​​of multiple objects into the first object and return:
+        var a = {name: 'Bob', age: 20};
+        // Note: If there is the same key, the value of the following object will 
+        // overwrite the value of the preceding object.
+        _.extend(a, {age: 15}, {age: 88, city: 'New York'}); 
+        console.log(a); // {name: 'Bob', age: 88, city: 'New York'}
+        // extendOwn() and extend() are similar, but ignore properties inherited from the prototype 
+        // chain when getting properties.
+        _.extendOwn(a, {age: 15}, {age: 88, city: 'New York'}); 
+        console.log(a); 
+        // Clone
+        var source = {
+            name: 'James',
+            age: 20,
+            skills: ['JavaScript', 'CSS', 'HTML']
+        };
+        var copied = _.clone(source);
+        console.log(copied); // {name: 'James', age: 20, skills: Array(3)}
+
+        // isEqual
+        // Perform a deep comparison of the two objects, if the contents are exactly the same, return true:
+        var o1 = { name: 'Bob', skills: { Java: 90, JavaScript: 99 }};
+        var o2 = { name: 'Bob', skills: { JavaScript: 99, Java: 90 }};
+        console.log(o1 === o2); // false
+        console.log(_.isEqual(o1, o2)); // true
+
+        var o1 = ['Bob', { skills: ['Java', 'JavaScript'] }];
+        var o2 = ['Bob', { skills: ['Java', 'JavaScript'] }];
+        console.log(o1 === o2); // false
+        console.log(_.isEqual(o1, o2)); // true
+
+        // Chaining
+        var filter = _.filter(_.map([1, 4, 9, 16, 25], Math.sqrt), x => x % 2 === 1);
+        console.log(filter); // [1, 3, 5]
+        var filter = _.filter(_.map([1, 4, 9, 16, 25], Math.sqrt), x => x % 2 === 0);
+        console.log(filter); // [2,4]
+        var result = _.chain([1, 4, 9, 16, 25])
+                    .map(Math.sqrt)
+                    .filter(x => x % 2 === 1)
+                    .value();
+        console.log(result); // [1,3,5]
+        
     </script>
 </html>
