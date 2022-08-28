@@ -1,0 +1,109 @@
+<html>
+    <head>
+    </head>
+    <body>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"></script>
+    <script>
+        'use strict';
+        console.log(_.map([1, 2, 3], (x) => x * x)); // 1 4 9
+        console.log(_.map({ a: 1, b: 2, c: 3 }, (v, k) => k + '=' + v));
+        // a=1 b=2 c=3
+        console.log(_.every([1, 4, 7, -3, -9], (x) => x > 0));  //false
+        console.log(_.some([1, 4, 7, -3, -9], (x) => x > 0));  //true
+        console.log('\n');
+        var obj = {
+            name: 'bob',
+            school: 'No.1 middle school',
+            address: 'xueyuan road'
+        };
+        // Every
+        var kv1 = _.every(obj, function (value, key) {
+            return key===key.toLowerCase()&&value===value.toLowerCase();
+        });
+        console.log(kv1);  // false
+        // Some
+        var kv2 = _.some(obj, function (value, key) {
+            return value===value.toLowerCase()||key===key.toLowerCase();
+        });
+        console.log(kv2);
+        console.log('\n'); // true
+        
+        // Max
+        var arr = [3, 5, 7, 9];
+        console.log(_.max(arr)); // 9
+        console.log(_.min(arr)); // 3
+        console.log('\n'); // true
+        
+        console.log(_.max({ a: 1, b: 2, c: 3 })) // 3
+
+        // Groupby
+        var scores = [20, 81, 75, 40, 91, 59, 77, 66, 72, 88, 99];
+        var groups = _.groupBy(scores, function (x) {
+            if (x < 60) {
+                return 'C';
+            } else if (x < 80) {
+                return 'B';
+            } else {
+                return 'A';
+            }
+        });
+        console.log(groups);
+        // A: (4) [81, 91, 88, 99]
+        // B: (4) [75, 77, 66, 72]
+        // C: (3) [20, 40, 59]
+
+        // Shuffle
+        // Shuffle a set randomly with the shuffling algorithm:
+        var shf = _.shuffle([1, 2, 3, 4, 5, 6]); 
+        // Note that the result is different every time
+        console.log(shf); //  [2, 1, 6, 5, 3, 4]
+        // Then one or more elements are randomly selected:
+        var sam = _.sample([1, 2, 3, 4, 5, 6]);
+        console.log(sam); //4
+        var sam = _.sample([1, 2, 3, 4, 5, 6], 3);
+        console.log(sam); // [4, 5, 3]
+
+        // First・Last
+        var arr = [2, 4, 6, 8];
+        console.log(_.first(arr)); // 2
+        console.log(_.last(arr)); // 8
+        
+        //Flattern
+        // Receive one Array, no matter Arrayhow many are nested in this Array, 
+        // and flatten() finally turn them into a one-dimensional array:
+        var flat = _.flatten([1, [2], [3, [[4], [5]]]]);
+        console.log(flat);
+
+        // zip / unzip
+        // Aligns all elements of two or more arrays by index, then merges them into a new array by index. 
+        // For example, you have one Arraysaved name and another Arraysaved score. Now, to match the name 
+        // and score, use the zip() easy implementation:
+        var names = ['Adam', 'Lisa', 'Bart'];
+        var scores = [85, 92, 59];
+        console.log(_.zip(names, scores));
+
+        var nscore = [['Adam', 85], ['Lisa', 92], ['Bart', 59]];
+        console.log(_.unzip(nscore));
+
+        // Object
+        // Sometimes you think, instead of using it zip(), why not map the name and score directly to Object? 
+        // Don't worry, object() this is what the function does:
+        var names = ['Adam', 'Lisa', 'Bart'];
+        var scores = [85, 92, 59];
+        // Note that _.object() it is a function, not a JavaScript Objectobject.
+        console.log(_.object(names, scores));
+
+        // Range
+        // range() Lets you quickly generate a sequence, no more forlooping implementations:
+        console.log(_.range(10));            // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        console.log(_.range(1, 11));        // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        console.log(_.range(0, 31, 5));    // [0, 5, 10, 15, 20, 25, 30]
+        console.log(_.range(0, -10, -1));  //  [0, -1, -2, -3, -4, -5, -6, -7, -8, -9]
+        
+        var arr = ['Apple', 'orange', 'banana', 'ORANGE', 'apple', 'PEAR'];
+        // var result = _.uniq(arr,false,function(x){return x.toUpperCase();});
+        var result=_.uniq(arr,x=>x.toUpperCase());
+        console.log(result);
+    </script>
+</html>
