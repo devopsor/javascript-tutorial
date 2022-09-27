@@ -1,7 +1,8 @@
-## ECMAScript5
+## ECMAScript
 ECMAScript is a trademarked scripting language specification that is defined by ECMA International. It was created to standardize JavaScript. The ES scripting language has many implementations, and the popular one is JavaScript. Generally, ECMAScript is used for client-side scripting of the World Wide Web.  
-***ECMAScript 2009***, also known as ***ES5***, was the ***first major revision*** to JavaScript.This repository introduces the most important features of ***ES5***.  
-
+***ECMAScript 2009(ES5)***, was the ***first major revision*** to JavaScript.    
+***ECMAScript 2015(ES6)***, was the ***second major revision*** to JavaScript.   
+This repository introduces the most important features of ***ES5*** and ***ES6***.  
 ### Difference between ES6 and ES6
 
 | Based on                    | ES5                    | ES6 |
